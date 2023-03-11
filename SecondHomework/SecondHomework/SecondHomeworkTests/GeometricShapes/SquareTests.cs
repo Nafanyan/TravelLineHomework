@@ -1,6 +1,6 @@
 ﻿using SecondHomework.GeometricShapes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SecondHomework.Interfaces;
+
 
 namespace SecondHomework.GeometricShapes.Tests
 {
@@ -18,8 +18,6 @@ namespace SecondHomework.GeometricShapes.Tests
 
             // Act & Assert
             Assert.ThrowsException<ArgumentException>(() => square.Side = -5);
-
-
         }
 
         [TestMethod()]
@@ -30,28 +28,26 @@ namespace SecondHomework.GeometricShapes.Tests
 
             // Act & Assert
             AssertFailedException.Equals(square.Side, 4);
-
-
         }
 
         [TestMethod()]
-        public void CalculateAreaTest()
+        public void CalculateArea_Area()
         {
             // Arrange
             Square square = new Square(10);
 
             // Act & Assert
-            AssertFailedException.Equals(square.Side, 100);
+            Assert.AreEqual(square.CalculateArea(), 100);
         }
 
         [TestMethod()]
-        public void CalculatePerimeterTest()
+        public void CalculatePerimeter_Perimeter()
         {
             // Arrange
             Square square = new Square(10);
 
             // Act & Assert
-            AssertFailedException.Equals(square.Side, 40);
+            Assert.AreEqual(square.CalculatePerimeter(), 40);
         }
 
 
