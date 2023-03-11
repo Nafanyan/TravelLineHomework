@@ -8,7 +8,7 @@ namespace SecondHomework.GeometricShapes.Tests
     public class RectangleTests
     {
         [TestMethod()]
-        public void Rectangle_ValidateData_NoExeption()
+        public void Rectangle_ValidateData_Exeption()
         {
             // Arrange
             Rectangle rectangle = new Rectangle(4, 12);
@@ -19,7 +19,7 @@ namespace SecondHomework.GeometricShapes.Tests
         }
 
         [TestMethod()]
-        public void Square_ValidateData_Exeption()
+        public void Rectangle_ValidateData_NoExeption()
         {
             // Arrange
             Rectangle rectangle = new Rectangle(4, 12);
@@ -30,7 +30,7 @@ namespace SecondHomework.GeometricShapes.Tests
         }
 
         [TestMethod()]
-        public void CalculateAreaTest()
+        public void Rectangle_CalculateArea_Area()
         {
             // Arrange
             Rectangle rectangle = new Rectangle(4, 12);
@@ -40,7 +40,7 @@ namespace SecondHomework.GeometricShapes.Tests
         }
 
         [TestMethod()]
-        public void CalculatePerimeterTest()
+        public void Rectangle_CalculatePerimeter_Perimeter()
         {
             // Arrange
             Rectangle rectangle = new Rectangle(4, 12);

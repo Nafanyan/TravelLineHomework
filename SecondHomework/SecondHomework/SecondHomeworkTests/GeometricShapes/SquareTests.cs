@@ -11,7 +11,7 @@ namespace SecondHomework.GeometricShapes.Tests
     {
 
         [TestMethod()]
-        public void Square_ValidateData_NoExeption()
+        public void Square_ValidateData_Exeption()
         {
             // Arrange
             Square square = new Square(4);
@@ -21,7 +21,7 @@ namespace SecondHomework.GeometricShapes.Tests
         }
 
         [TestMethod()]
-        public void Square_ValidateData_Exeption()
+        public void Square_ValidateData_NoExeption()
         {
             // Arrange
             Square square = new Square(4);
@@ -31,7 +31,7 @@ namespace SecondHomework.GeometricShapes.Tests
         }
 
         [TestMethod()]
-        public void CalculateArea_Area()
+        public void Square_CalculateArea_Area()
         {
             // Arrange
             Square square = new Square(10);
@@ -41,7 +41,7 @@ namespace SecondHomework.GeometricShapes.Tests
         }
 
         [TestMethod()]
-        public void CalculatePerimeter_Perimeter()
+        public void Square_CalculatePerimeter_Perimeter()
         {
             // Arrange
             Square square = new Square(10);
