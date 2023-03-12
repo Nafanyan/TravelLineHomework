@@ -7,8 +7,8 @@ namespace SecondHomework
     {
         static void Main(string[] args)
         {
-            IShape square = new Triangle(3, 9, 10);
-            Console.WriteLine($"P = {square.CalculatePerimeter()}, S = {square.CalculateArea()}");
+            IShape shape = new Triangle(3, 9, 10);
+            Console.WriteLine($"P = {shape.CalculatePerimeter()}, S = {shape.CalculateArea()}");
         }
     }
 }

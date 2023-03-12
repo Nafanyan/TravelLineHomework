@@ -1,4 +1,5 @@
-﻿
+﻿using SecondHomework.ConcreteShape;
+
 namespace SecondHomework.GeometricShapes
 {
     public class Triangle : Shape
@@ -37,21 +38,14 @@ namespace SecondHomework.GeometricShapes
 
         public Triangle(double firstSide, double secondSide, double thirdSide)
         {
-            this.FirstSide = firstSide;
-            this.SecondSide = secondSide;
-            this.ThirdSide = thirdSide;
+            FirstSide = firstSide;
+            SecondSide = secondSide;
+            ThirdSide = thirdSide;
             ValidateSides();
-        }
-        public override double CalculateArea()
-        {
-            double p = CalculatePerimeter() / 2;
-            return Math.Sqrt(p * (p - _firstSide) * (p - _secondSide) * (p - _thirdSide));
-        }
-        public override double CalculatePerimeter()
-        {
-            return _firstSide + _secondSide + _thirdSide;
-        }
 
+            shape = new TriangleShape(firstSide, secondSide, thirdSide);
+
+        }
         private void ValidateSides()
         {
             if (! (_firstSide + _secondSide > _thirdSide)) throw new ArgumentException();

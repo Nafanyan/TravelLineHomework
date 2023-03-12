@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SecondHomework.GeometricShapes;
 
-
 namespace SecondHomework.GeometricShapes.Tests
 {
     [TestClass()]

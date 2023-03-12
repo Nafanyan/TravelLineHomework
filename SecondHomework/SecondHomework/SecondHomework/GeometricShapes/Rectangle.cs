@@ -1,4 +1,5 @@
-﻿
+﻿using SecondHomework.ConcreteShape;
+
 namespace SecondHomework.GeometricShapes
 {
     public class Rectangle : Shape
@@ -27,17 +28,9 @@ namespace SecondHomework.GeometricShapes
 
         public Rectangle(double length, double hight)
         {
-            this.Length = length;
-            this.Hight = hight;
-        }
-        public override double CalculateArea()
-        {
-            return _length * _hight;
-        }
-
-        public override double CalculatePerimeter()
-        {
-            return _length * 2 + _hight * 2;
+            Length = length;
+            Hight = hight;
+            shape = new RectangleShape(length, hight);
         }
     }
 }
