@@ -4,48 +4,46 @@ using SecondHomework.GeometricShapes;
 namespace SecondHomework.GeometricShapes.Tests
 {
     [TestClass()]
-    public class RectangleTests
+    public class CircleTests
     {
         [TestMethod()]
         public void Rectangle_ValidateData_Exeption()
         {
             // Arrange
-            Rectangle rectangle = new Rectangle(4, 12);
+            Circle rectangle = new Circle(4);
 
             // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => rectangle.Hight = -5);
-            Assert.ThrowsException<ArgumentException>(() => rectangle.Length = -5);
+            Assert.ThrowsException<ArgumentException>(() => rectangle.Radius = -5);
         }
 
         [TestMethod()]
         public void Rectangle_ValidateData_NoExeption()
         {
             // Arrange
-            Rectangle rectangle = new Rectangle(4, 12);
+            Circle rectangle = new Circle(4);
 
             // Act & Assert
-            Assert.AreEqual(rectangle.Length, 4);
-            Assert.AreEqual(rectangle.Hight, 12);
+            Assert.AreEqual(rectangle.Radius, 4);
         }
 
         [TestMethod()]
         public void Rectangle_CalculateArea_Area()
         {
             // Arrange
-            Rectangle rectangle = new Rectangle(4, 12);
+            Circle rectangle = new Circle(4);
 
             // Act & Assert
-            Assert.AreEqual(rectangle.CalculateArea(), 48);
+            Assert.AreEqual(rectangle.CalculateArea(), Math.PI * 4 * 4);
         }
 
         [TestMethod()]
         public void Rectangle_CalculatePerimeter_Perimeter()
         {
             // Arrange
-            Rectangle rectangle = new Rectangle(4, 12);
+            Circle rectangle = new Circle(4);
 
             // Act & Assert
-            Assert.AreEqual(rectangle.CalculatePerimeter(), 32);
+            Assert.AreEqual(rectangle.CalculatePerimeter(), 2 * Math.PI * 4);
         }
     }
 }
