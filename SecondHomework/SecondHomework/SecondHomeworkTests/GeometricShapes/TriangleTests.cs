@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SecondHomework.GeometricShapes;
+using NUnit.Framework;
+using Assert = NUnit.Framework.Assert;
 
 namespace SecondHomework.GeometricShapes.Tests
 {
@@ -7,52 +8,48 @@ namespace SecondHomework.GeometricShapes.Tests
     public class TriangleTests
     {
 
-        [TestMethod()]
-        public void Triangle_ValidateData_Exeption()
+        [TestCase(-9, 10, 11)]
+        [TestCase(9, -10, 11)]
+        [TestCase(9, 10, -11)]
+        public void Triangle_NotPositiveLength_Exeption(double firstSide, double secoSide, double thirSide)
         {
-            // Arrange
-            Triangle triangle = new Triangle(4, 12, 10);
-
             // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => triangle.FirstSide = -4);
-            Assert.ThrowsException<ArgumentException>(() => triangle.SecondSide = -12);
-            Assert.ThrowsException<ArgumentException>(() => triangle.ThirdSide = -10);
+            Assert.Throws<ArgumentException>(() => new Triangle(firstSide, secoSide, thirSide));
         }
 
-        [TestMethod()]
-        public void Triangle_ValidateData_NoExeption()
+        [TestCase(1, 10, 12)]
+        [TestCase(65, 2, 123)]
+        [TestCase(0, 1, 9)]
+        public void Triangle_ValidateData_Exeption(double firstSide, double secoSide, double thirSide)
         {
-            // Arrange
-            Triangle triangle = new Triangle(4, 12, 10);
-
-            // Act & Assert
-            Assert.AreEqual(triangle.FirstSide, 4);
-            Assert.AreEqual(triangle.SecondSide, 12);
-            Assert.AreEqual(triangle.ThirdSide, 10);
-
+            Assert.Throws<ArgumentException>(() => new Triangle(firstSide, secoSide, thirSide));
         }
 
-        [TestMethod()]
-        public void Triangle_CalculateArea_Area()
+        [TestCase(1, 2, 2)]
+        [TestCase(9, 10, 12)]
+        [TestCase(44, 55, 33)]
+        public void CalculateArea_CalculateArea_Area(double firstSide, double secoSide, double thirSide)
         {
             // Arrange
-            Triangle triangle = new Triangle(4, 12, 10);
+            Triangle triangle = new Triangle(firstSide, secoSide, thirSide);
             double p = triangle.CalculatePerimeter() / 2;
             //return 
 
             // Act & Assert
-            Assert.AreEqual(triangle.CalculateArea(), 
-                Math.Sqrt(p * (p - triangle.FirstSide) * (p - triangle.SecondSide) * (p - triangle.ThirdSide)));
+            Assert.AreEqual(triangle.CalculateArea(),
+                Math.Sqrt(p * (p - firstSide) * (p - secoSide) * (p - thirSide)));
         }
 
-        [TestMethod()]
-        public void Triangle_CalculatePerimeter_Perimeter()
+        [TestCase(1, 2, 2)]
+        [TestCase(9, 10, 12)]
+        [TestCase(44, 55, 33)]
+        public void CalculatePerimeter_CalculatePerimeter_Perimeter(double firstSide, double secoSide, double thirSide)
         {
             // Arrange
-            Triangle triangle = new Triangle(4, 12, 10);
+            Triangle triangle = new Triangle(firstSide, secoSide, thirSide);
 
             // Act & Assert
-            Assert.AreEqual(triangle.CalculatePerimeter(), 26);
+            Assert.AreEqual(triangle.CalculatePerimeter(), firstSide + secoSide + thirSide);
         }
     }
 }

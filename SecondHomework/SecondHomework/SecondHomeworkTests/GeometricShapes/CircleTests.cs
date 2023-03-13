@@ -1,49 +1,42 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SecondHomework.GeometricShapes;
+using NUnit.Framework;
+using Assert = NUnit.Framework.Assert;
 
 namespace SecondHomework.GeometricShapes.Tests
 {
     [TestClass()]
     public class CircleTests
     {
-        [TestMethod()]
-        public void Rectangle_ValidateData_Exeption()
+        [TestCase(-10)]
+        [TestCase(-12)]
+        [TestCase(-5)]
+        public void Rectangle_NotPositiveLength_Exeption(double input)
         {
-            // Arrange
-            Circle rectangle = new Circle(4);
-
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => rectangle.Radius = -5);
+            Assert.Throws<ArgumentException>(() => new Circle(input));
         }
 
-        [TestMethod()]
-        public void Rectangle_ValidateData_NoExeption()
+        [TestCase(2)]
+        [TestCase(21)]
+        [TestCase(54)]
+        public void CalculateArea_CalculateArea_Area(double input)
         {
             // Arrange
-            Circle rectangle = new Circle(4);
+            Circle rectangle = new Circle(input);
 
             // Act & Assert
-            Assert.AreEqual(rectangle.Radius, 4);
+            Assert.AreEqual(rectangle.CalculateArea(), Math.PI * input * input);
         }
 
-        [TestMethod()]
-        public void Rectangle_CalculateArea_Area()
+        [TestCase(2)]
+        [TestCase(21)]
+        [TestCase(54)]
+        public void CalculatePerimeter_CalculatePerimeter_Perimeter(double input)
         {
             // Arrange
-            Circle rectangle = new Circle(4);
+            Circle rectangle = new Circle(input);
 
             // Act & Assert
-            Assert.AreEqual(rectangle.CalculateArea(), Math.PI * 4 * 4);
-        }
-
-        [TestMethod()]
-        public void Rectangle_CalculatePerimeter_Perimeter()
-        {
-            // Arrange
-            Circle rectangle = new Circle(4);
-
-            // Act & Assert
-            Assert.AreEqual(rectangle.CalculatePerimeter(), 2 * Math.PI * 4);
+            Assert.AreEqual(rectangle.CalculatePerimeter(), 2 * Math.PI * input);
         }
     }
 }
