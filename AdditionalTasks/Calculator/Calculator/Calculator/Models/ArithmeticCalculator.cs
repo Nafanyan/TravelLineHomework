@@ -1,6 +1,4 @@
 ﻿
-using System.Numerics;
-
 namespace Calculator.Models
 {
     public class ArithmeticCalculator : IApplication
@@ -16,7 +14,6 @@ namespace Calculator.Models
                 _result = "Input error";
                 return;
             }
-
             ParseString(source);
             _result = Convert.ToString(nums.Pop());
         }

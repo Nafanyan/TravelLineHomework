@@ -1,5 +1,4 @@
-﻿
-using Calculator.Models;
+﻿using Calculator.Models;
 using Calculator.Views;
 
 namespace Calculator.Controller
@@ -11,7 +10,6 @@ namespace Calculator.Controller
         private string? _source;
         public void Start()
         {
-            _source = "defolt";
             _application = new ArithmeticCalculator();
             _views = new ConsoleView();
 
