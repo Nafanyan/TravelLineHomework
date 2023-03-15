@@ -1,10 +1,13 @@
-﻿namespace Shop
+﻿using Shop.Controllers;
+
+namespace Shop
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            IController controller = new MainController();
+            controller.Start();
         }
     }
 }
