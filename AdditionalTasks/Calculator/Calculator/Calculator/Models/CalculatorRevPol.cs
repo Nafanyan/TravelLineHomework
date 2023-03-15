@@ -1,10 +1,9 @@
 ﻿
 namespace Calculator.Models
 {
-    public class ArithmeticCalculator : IApplication
+    public class CalculatorRevPol : IApplication
     {
         private Stack<double> nums;
-
         private string? _result;
 
         public void Start(string source)
@@ -17,6 +16,7 @@ namespace Calculator.Models
             ParseString(source);
             _result = Convert.ToString(nums.Pop());
         }
+
         public string Result() => _result;
 
         private void ParseString(string source)
@@ -84,7 +84,6 @@ namespace Calculator.Models
             if (countNum - 1 != countOper || countNum + countOper != source.Split(' ').Length) return true;
 
             return false;
-
         }
 
 

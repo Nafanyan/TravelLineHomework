@@ -1,12 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Calculator.Models;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
 namespace Calculator.Models.Tests
 {
     [TestClass()]
-    public class ArithmeticCalculatorTests
+    public class CalculatorRevPolTests
     {
         [TestCase("1 2 + 10 12 * - 2 10 / + 12 8 * -", "-212,8")]
         [TestCase("11 2 - 9 12 * + 4 -", "113")]
@@ -14,7 +13,7 @@ namespace Calculator.Models.Tests
         public void Start_CorrectData_RightAnswer(string input, string output)
         {
             // Arrange
-            ArithmeticCalculator calculator = new ArithmeticCalculator();
+            CalculatorRevPol calculator = new CalculatorRevPol();
 
             // Act
             calculator.Start(input);
@@ -29,7 +28,7 @@ namespace Calculator.Models.Tests
         public void Start_NotCorrectData_StringError(string input, string output)
         {
             // Arrange
-            ArithmeticCalculator calculator = new ArithmeticCalculator();
+            CalculatorRevPol calculator = new CalculatorRevPol();
 
             // Act
             calculator.Start(input);

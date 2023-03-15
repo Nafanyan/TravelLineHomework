@@ -12,7 +12,17 @@ namespace Calculator.Views
         public void StartPrint()
         {
             Console.Write("Hi! This is a simple arithmetic calculator. " +
-                "If you want to finish, write \"exit\" \n" + "Please enter examples in reverse Polish notation: ");
+                "If you want to finish, write \"exit\" \n");
+        }
+
+        public void EndPrint()
+        {
+            Console.Write("To change the model, enter swap: ");
+        }
+
+        public void PrintOptions()
+        {
+            Console.WriteLine("For reverse Polish notation press 1, for step by step example press 2:");
         }
     }
 }

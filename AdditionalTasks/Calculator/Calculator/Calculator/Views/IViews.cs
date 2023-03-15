@@ -5,5 +5,7 @@ namespace Calculator.Views
     {
         public void StartPrint();
         public void PrintData(string source);
+        public void EndPrint();
+        public void PrintOptions();
     }
 }
