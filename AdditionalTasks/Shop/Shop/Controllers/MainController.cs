@@ -9,11 +9,13 @@ namespace Shop.Controllers
         private IModels _models;
         private IViews _views;
         private string? _userInput;
+        public string dbTXT;
 
         public MainController()
         {
             _views = new ViewConsole();
             _models = new ModelDB();
+            dbTXT = "C:\\Users\\01112\\Documents\\CShark\\TravelLineHomework\\AdditionalTasks\\Shop\\Shop\\db.txt";
         }
         public void Start()
         {
@@ -22,6 +24,7 @@ namespace Shop.Controllers
 
             if (_userInput == "exit") return;
 
+
             _views.Print("Введите категорию:");
             _views.Print(_models.GetTypeProduct());
 
@@ -29,6 +32,7 @@ namespace Shop.Controllers
 
             if (_userInput == "2") NextController(new AddElementController(_models, _views));
 
+            _models.WriteFile(dbTXT);
             Start();
         }
         public void NextController(IController controller)

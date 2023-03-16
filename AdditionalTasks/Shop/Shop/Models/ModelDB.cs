@@ -102,6 +102,16 @@ namespace Shop.Models
             }
             return _result;
         }
+
+        public bool WriteFile(string path)
+        {
+            using (StreamWriter writetext = new StreamWriter(path))
+            {
+                writetext.WriteLine(ReadAll());
+            }
+
+            return File.Exists(path);
+        }
     }
 }
 

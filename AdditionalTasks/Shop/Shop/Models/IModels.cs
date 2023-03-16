@@ -8,5 +8,6 @@ namespace Shop.Models
         public string RemoveElement(string id);
         public string AddRequest(string request);
         public string GetTypeProduct();
+        public bool WriteFile(string path);
     }
 }
