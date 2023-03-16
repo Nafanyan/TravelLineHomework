@@ -7,6 +7,11 @@ namespace Shop.Models
     {
         private string _result;
 
+        public ShopContext DB
+        {
+            get { return new ShopContext(); }
+        }
+
         public string AddRequest(string request)
         {
             _result = "";
@@ -33,6 +38,20 @@ namespace Shop.Models
                 db.SaveChanges();
             }
             return ReadAll();
+        }
+
+        public void DeleteWithID(string id)
+        {
+            using (var db = new ShopContext())
+            {
+
+                var product = db.Products
+                     .Where(i => i.Id == Convert.ToInt32(id))
+                     .FirstOrDefault();
+
+                db.Products.Remove(product);
+                db.SaveChanges();
+            }
         }
 
         public string GetTypeProduct()
@@ -95,7 +114,7 @@ namespace Shop.Models
 
                 foreach (Product p in product)
                 {
-                    if (p.Id == Convert.ToInt32(id)) p.CountInStock--;
+                    if (p.Id == Convert.ToInt32(id) && p.CountInStock > 0) p.CountInStock--;
                     _result += $"id: {p.Id}, name:{p.NameProduct}, weight kg: {p.WeightProduct}, price: {p.Price}, description: {p.DescriptionProduct}, count in stock: {p.CountInStock}, type: {p.TypeProduct}\n";
                 }
                 db.SaveChanges();

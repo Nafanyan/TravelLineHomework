@@ -9,5 +9,7 @@ namespace Shop.Models
         public string AddRequest(string request);
         public string GetTypeProduct();
         public bool WriteFile(string path);
+
+        public void DeleteWithID(string id);
     }
 }
