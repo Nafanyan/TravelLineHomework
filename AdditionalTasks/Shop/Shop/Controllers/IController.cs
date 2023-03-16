@@ -5,5 +5,7 @@ namespace Shop.Controllers
     {
         public void Start();
 
+        public void NextController(IController controller);
+
     }
 }

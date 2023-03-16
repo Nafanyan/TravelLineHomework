@@ -1,16 +1,11 @@
 ﻿
-using Microsoft.EntityFrameworkCore;
 using Shop.Databases;
-using System.Diagnostics;
-using System.Globalization;
 
 namespace Shop.Models
 {
-    internal class ModelDB : IModels
+    public class ModelDB : IModels
     {
         private string _result;
-
-
 
         public string AddRequest(string request)
         {
@@ -103,6 +98,7 @@ namespace Shop.Models
                     if (p.Id == Convert.ToInt32(id)) p.CountInStock--;
                     _result += $"id: {p.Id}, name:{p.NameProduct}, weight kg: {p.WeightProduct}, price: {p.Price}, description: {p.DescriptionProduct}, count in stock: {p.CountInStock}, type: {p.TypeProduct}\n";
                 }
+                db.SaveChanges();
             }
             return _result;
         }
