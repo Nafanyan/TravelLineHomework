@@ -19,14 +19,14 @@ namespace Calculator.Views
             Console.Write(_basicPhrases.Greeting);
         }
 
-        public void ChangeModeMessageShow()
-        {
-            Console.Write(_basicPhrases.ChangeMode);
-        }
-
         public void AvailableModesMessageShow()
         {
             Console.WriteLine(_basicPhrases.AviableModes);
+        }
+
+        public string? InputMessageShow()
+        {
+            return Console.ReadLine();
         }
     }
 }

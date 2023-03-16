@@ -13,41 +13,35 @@ namespace Calculator.Controller
             _views = new ConsoleMessageShow();
             _views.GreetingMessageShow();
 
-            _icalculator = SwapModel();
-
-            while (_source != "exit")
+            while (true)
             {
-                _source = Console.ReadLine();
+                _icalculator = SwapModel();
 
-                if (_source == "swap") _icalculator = SwapModel();
+                if (_source == "exit") return;
 
-                else
-                {
-                    if (_icalculator is CalculatorSteps) _source = InputForStepModel();
+                if (_icalculator is CalculatorSteps) _source = InputForStepModel();
 
-                    _icalculator.Start(_source);
-                    _views.MessageShow(_icalculator.Result());
-                    _views.ChangeModeMessageShow();
-                }
-
+                _icalculator.Start(_source);
+                _views.MessageShow(_icalculator.Result());
             }
         }
 
         private ICalculator SwapModel()
         {
             _views.AvailableModesMessageShow();
-            string options = Console.ReadLine();
-            if (options == "1") return new CalculatorRevPol();
- 
-            if (options == "2") return new CalculatorSteps();
+            _source = _views.InputMessageShow();
 
-            return SwapModel();
+            if (_source.Split(' ').Length < 3 || !_source.Contains(' ')) return new CalculatorSteps();
+
+            else return new CalculatorRevPol();
+
         }
 
         private string InputForStepModel()
         {
-            string operat = Console.ReadLine();
-            string operand = Console.ReadLine();
+            string operat = _views.InputMessageShow();
+            string operand = _views.InputMessageShow();
+            if (_source.Length > 1) _source = _source.Remove(_source.Length - 1);
             return $"{_source} {operat} {operand}";
         }
     }

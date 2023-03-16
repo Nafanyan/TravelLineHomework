@@ -5,7 +5,7 @@ namespace Calculator.Views
     {
         public void GreetingMessageShow();
         public void MessageShow(string source);
-        public void ChangeModeMessageShow();
         public void AvailableModesMessageShow();
+        public string? InputMessageShow();
     }
 }

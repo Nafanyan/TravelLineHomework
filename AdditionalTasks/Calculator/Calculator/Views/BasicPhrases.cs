@@ -7,16 +7,7 @@ namespace Calculator.Views
         {
             get
             {
-                return "\"Hi! This is a simple arithmetic calculator. \" +\r\n " +
-                    "\"If you want to finish, write \\\"exit\\\" \\n\"";
-            }
-        }
-
-        public string ChangeMode
-        {
-            get
-            {
-                return "To change the model, enter swap: ";
+                return "Hi! This is a simple arithmetic calculator.";
             }
         }
 
@@ -24,7 +15,7 @@ namespace Calculator.Views
         {
             get
             {
-                return "For reverse Polish notation press 1, for step by step example press 2:";
+                return "Enter the example step by step or in reverse Polish notation (for example 2 1 -):";
             }
         }
     }
