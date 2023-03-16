@@ -1,25 +1,25 @@
 ﻿
+using Calculator.ValidateData;
+
 namespace Calculator.Models
 {
-    public class CalculatorSteps : IApplication
+    public class CalculatorSteps : ICalculator
     {
-        private string _result;
-        public void Start(string source)
+        
+        public override void Start(string source)
         {
+            validateData = new ValidateCalculatorSteps();
+            base.Start(source);
 
-            if (ValidateData(source))
-            {
-                _result = "Input error";
-                return;
-            }
+            if (validInput) return;
 
             string[] elements = source.Split(' ');
-            _result = ArithmeticOperation(Convert.ToDouble(elements[0]), 
+            result = ArithmeticOperation(Convert.ToDouble(elements[0]), 
                 Convert.ToDouble(elements[2]), 
                 Convert.ToChar(elements[1]));
         }
 
-        public string Result() => _result;
+        public override string Result() => result;
 
         private string ArithmeticOperation(double firstNum, double secoNum, char oper)
         {
@@ -43,26 +43,5 @@ namespace Calculator.Models
             }
         }
 
-        private bool ValidateData(string source)
-        {
-            if (source == null || source == "") return true;
-
-            int countOper = 0;
-            int countNum = 0;
-            double supNum;
-
-            foreach (string el in source.Split(' '))
-            {
-                if (el == "+" || el == "-" || el == "/" || el == "*")
-                {
-                    countOper++;
-                }
-                if (Double.TryParse(el, out supNum)) countNum++;
-            }
-
-            if (countNum - 1 != countOper || countNum + countOper != source.Split(' ').Length) return true;
-
-            return false;
-        }
     }
 }

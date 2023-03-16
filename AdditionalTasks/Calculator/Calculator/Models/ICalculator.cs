@@ -1,9 +1,25 @@
 ﻿
+using Calculator.ValidateData;
+
 namespace Calculator.Models
 {
-    internal interface IApplication
+    public abstract class ICalculator
     {
-        public void Start(string source);
-        public string Result();
+        protected string? result;
+        protected IValidateData validateData;
+        protected bool validInput;
+
+        public virtual void Start(string source)
+        {
+            validInput = false;
+            if (validateData.Validate(source))
+            {
+                result = "Input error";
+                validInput = true;
+            }
+        }
+        public abstract string Result();
+
+
     }
 }

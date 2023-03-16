@@ -1,23 +1,24 @@
 ﻿
+using Calculator.ValidateData;
+
 namespace Calculator.Models
 {
-    public class CalculatorRevPol : IApplication
+    public class CalculatorRevPol : ICalculator
     {
         private Stack<double> nums;
-        private string? _result;
 
-        public void Start(string source)
+        public override void Start(string source)
         {
-            if (ValidateData(source))
-            {
-                _result = "Input error";
-                return;
-            }
+            validateData = new ValidateCalculatorRevPol();
+            base.Start(source);
+
+            if (validInput) return;
+
             ParseString(source);
-            _result = Convert.ToString(nums.Pop());
+            result = Convert.ToString(nums.Pop());
         }
 
-        public string Result() => _result;
+        public override string Result() => result;
 
         private void ParseString(string source)
         {
@@ -61,32 +62,6 @@ namespace Calculator.Models
                     break;
             }
         }
-
-        private bool ValidateData(string source)
-        {
-            if (source == null || source == "") return  true;
-
-            if (source.Split(' ').Length < 3) return true;
-
-            int countOper = 0;
-            int countNum = 0;
-            double supNum;
-
-            foreach (string el in source.Split(' '))
-            {
-                if (el == "+" || el == "-" || el == "/" || el == "*")
-                {
-                    countOper++;
-                }
-                if (Double.TryParse(el, out supNum)) countNum++;
-            }
-
-            if (countNum - 1 != countOper || countNum + countOper != source.Split(' ').Length) return true;
-
-            return false;
-        }
-
-
 
     }
 }

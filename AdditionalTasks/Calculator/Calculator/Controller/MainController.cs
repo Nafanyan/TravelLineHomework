@@ -5,7 +5,7 @@ namespace Calculator.Controller
 {
     internal class MainController
     {
-        private IApplication _application;
+        private ICalculator _icalculator;
         private IMessageShow _views;
         private string? _source;
         public void Start()
@@ -13,27 +13,27 @@ namespace Calculator.Controller
             _views = new ConsoleMessageShow();
             _views.GreetingMessageShow();
 
-            _application = SwapModel();
+            _icalculator = SwapModel();
 
             while (_source != "exit")
             {
                 _source = Console.ReadLine();
 
-                if (_source == "swap") _application = SwapModel();
+                if (_source == "swap") _icalculator = SwapModel();
 
                 else
                 {
-                    if (_application is CalculatorSteps) _source = InputForStepModel();
+                    if (_icalculator is CalculatorSteps) _source = InputForStepModel();
 
-                    _application.Start(_source);
-                    _views.MessageShow(_application.Result());
+                    _icalculator.Start(_source);
+                    _views.MessageShow(_icalculator.Result());
                     _views.ChangeModeMessageShow();
                 }
 
             }
         }
 
-        private IApplication SwapModel()
+        private ICalculator SwapModel()
         {
             _views.AvailableModesMessageShow();
             string options = Console.ReadLine();
