@@ -1,28 +1,32 @@
 ﻿
 namespace Calculator.Views
 {
-    internal class ConsoleView : IViews
+    internal class ConsoleMessageShow : IMessageShow
     {
-        public void PrintData(string source)
+        private BasicPhrases _basicPhrases;
+        public ConsoleMessageShow()
+        {
+            _basicPhrases = new BasicPhrases();
+        }
+        public void MessageShow(string source)
         {
             Console.Write($"= {source}");
             Console.WriteLine();
         }
 
-        public void StartPrint()
+        public void GreetingMessageShow()
         {
-            Console.Write("Hi! This is a simple arithmetic calculator. " +
-                "If you want to finish, write \"exit\" \n");
+            Console.Write(_basicPhrases.Greeting);
         }
 
-        public void EndPrint()
+        public void ChangeModeMessageShow()
         {
-            Console.Write("To change the model, enter swap: ");
+            Console.Write(_basicPhrases.ChangeMode);
         }
 
-        public void PrintOptions()
+        public void AvailableModesMessageShow()
         {
-            Console.WriteLine("For reverse Polish notation press 1, for step by step example press 2:");
+            Console.WriteLine(_basicPhrases.AviableModes);
         }
     }
 }

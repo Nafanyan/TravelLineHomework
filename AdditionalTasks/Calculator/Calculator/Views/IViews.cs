@@ -1,11 +1,11 @@
 ﻿
 namespace Calculator.Views
 {
-    internal interface IViews
+    internal interface IMessageShow
     {
-        public void StartPrint();
-        public void PrintData(string source);
-        public void EndPrint();
-        public void PrintOptions();
+        public void GreetingMessageShow();
+        public void MessageShow(string source);
+        public void ChangeModeMessageShow();
+        public void AvailableModesMessageShow();
     }
 }

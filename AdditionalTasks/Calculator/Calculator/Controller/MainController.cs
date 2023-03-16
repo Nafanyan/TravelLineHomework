@@ -6,12 +6,12 @@ namespace Calculator.Controller
     internal class MainController
     {
         private IApplication _application;
-        private IViews _views;
+        private IMessageShow _views;
         private string? _source;
         public void Start()
         {
-            _views = new ConsoleView();
-            _views.StartPrint();
+            _views = new ConsoleMessageShow();
+            _views.GreetingMessageShow();
 
             _application = SwapModel();
 
@@ -26,8 +26,8 @@ namespace Calculator.Controller
                     if (_application is CalculatorSteps) _source = InputForStepModel();
 
                     _application.Start(_source);
-                    _views.PrintData(_application.Result());
-                    _views.EndPrint();
+                    _views.MessageShow(_application.Result());
+                    _views.ChangeModeMessageShow();
                 }
 
             }
@@ -35,7 +35,7 @@ namespace Calculator.Controller
 
         private IApplication SwapModel()
         {
-            _views.PrintOptions();
+            _views.AvailableModesMessageShow();
             string options = Console.ReadLine();
             if (options == "1") return new CalculatorRevPol();
  
