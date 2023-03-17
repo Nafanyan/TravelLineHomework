@@ -11,7 +11,7 @@ namespace SecondHomework.GeometricShapes.Tests
         [TestCase(-9, 10, 11)]
         [TestCase(9, -10, 11)]
         [TestCase(9, 10, -11)]
-        public void Triangle_NotPositiveLength_Exeption(double firstSide, double secoSide, double thirSide)
+        public void Constructor_NotPositiveLength_Exeption(double firstSide, double secoSide, double thirSide)
         {
             // Act & Assert
             Assert.Throws<ArgumentException>(() => new Triangle(firstSide, secoSide, thirSide));
@@ -20,8 +20,9 @@ namespace SecondHomework.GeometricShapes.Tests
         [TestCase(1, 10, 12)]
         [TestCase(65, 2, 123)]
         [TestCase(0, 1, 9)]
-        public void Triangle_ValidateData_Exeption(double firstSide, double secoSide, double thirSide)
+        public void Constructor_NotValidateData_Exeption(double firstSide, double secoSide, double thirSide)
         {
+            // Act & Assert
             Assert.Throws<ArgumentException>(() => new Triangle(firstSide, secoSide, thirSide));
         }
 
@@ -33,11 +34,10 @@ namespace SecondHomework.GeometricShapes.Tests
             // Arrange
             Triangle triangle = new Triangle(firstSide, secoSide, thirSide);
             double p = triangle.CalculatePerimeter() / 2;
-            //return 
+            double area = Math.Sqrt(p * (p - firstSide) * (p - secoSide) * (p - thirSide));
 
             // Act & Assert
-            Assert.AreEqual(triangle.CalculateArea(),
-                Math.Sqrt(p * (p - firstSide) * (p - secoSide) * (p - thirSide)));
+            Assert.AreEqual(triangle.CalculateArea(), area);
         }
 
         [TestCase(1, 2, 2)]
@@ -47,9 +47,10 @@ namespace SecondHomework.GeometricShapes.Tests
         {
             // Arrange
             Triangle triangle = new Triangle(firstSide, secoSide, thirSide);
+            double perimeter = firstSide + secoSide + thirSide;
 
             // Act & Assert
-            Assert.AreEqual(triangle.CalculatePerimeter(), firstSide + secoSide + thirSide);
+            Assert.AreEqual(triangle.CalculatePerimeter(), perimeter);
         }
     }
 }

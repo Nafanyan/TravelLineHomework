@@ -2,11 +2,10 @@
 
 namespace SecondHomework
 {
-    public abstract class Shape : IShape
+    public abstract class Shape
     {
-        protected IShape shape;
-        public double CalculateArea() => shape.CalculateArea();
-        public double CalculatePerimeter() => shape.CalculatePerimeter();
+        public abstract double CalculateArea();
+        public abstract double CalculatePerimeter();
         protected void ValidateData(double value)
         {
             if (value < 0) throw new ArgumentException(nameof(value));

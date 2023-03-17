@@ -10,8 +10,9 @@ namespace SecondHomework.GeometricShapes.Tests
         [TestCase(-10)]
         [TestCase(-12)]
         [TestCase(-5)]
-        public void Circle_NotPositiveLength_Exeption(double input)
+        public void Constructor_NotPositiveLength_Exeption(double input)
         {
+            // Act & Assert
             Assert.Throws<ArgumentException>(() => new Circle(input));
         }
 
@@ -22,9 +23,10 @@ namespace SecondHomework.GeometricShapes.Tests
         {
             // Arrange
             Circle сircle = new Circle(input);
+            double area = Math.PI * input * input;
 
             // Act & Assert
-            Assert.AreEqual(сircle.CalculateArea(), Math.PI * input * input);
+            Assert.AreEqual(сircle.CalculateArea(), area);
         }
 
         [TestCase(2)]
@@ -34,9 +36,10 @@ namespace SecondHomework.GeometricShapes.Tests
         {
             // Arrange
             Circle сircle = new Circle(input);
+            double perimeter = 2 * Math.PI * input;
 
             // Act & Assert
-            Assert.AreEqual(сircle.CalculatePerimeter(), 2 * Math.PI * input);
+            Assert.AreEqual(сircle.CalculatePerimeter(), perimeter);
         }
     }
 }

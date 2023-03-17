@@ -1,5 +1,4 @@
-﻿using SecondHomework.ConcreteShape;
-
+﻿
 namespace SecondHomework.GeometricShapes
 {
     public class Square : Shape
@@ -17,7 +16,16 @@ namespace SecondHomework.GeometricShapes
         public Square(double side)
         {
             Side = side;
-            shape = new SquareShape(side);
+        }
+
+        public override double CalculateArea()
+        {
+            return _side * _side;
+        }
+
+        public override double CalculatePerimeter()
+        {
+            return _side * 4;
         }
     }
 }

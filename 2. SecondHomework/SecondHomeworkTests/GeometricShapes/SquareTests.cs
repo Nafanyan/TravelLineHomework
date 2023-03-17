@@ -6,7 +6,6 @@ using Assert = NUnit.Framework.Assert;
 namespace SecondHomework.GeometricShapes.Tests
 {
 
-
     [TestClass()]
     public class SquareTests
     {
@@ -14,24 +13,23 @@ namespace SecondHomework.GeometricShapes.Tests
         [TestCase(-10)]
         [TestCase(-12)]
         [TestCase(-5)]
-
-        public void Square_NotPositiveLength_Exeption(double input)
+        public void Constructor_NotPositiveLength_Exeption(double input)
         {
-            Assert.Throws<ArgumentException>(() => new Square(-1));
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => new Square(input));
         }
-
 
         [TestCase(10)]
         [TestCase(12)]
         [TestCase(5)]
-
         public void CalculateArea_ValidInput_CorrectAnswera(double input)
         {
             // Arrange
             Square square = new Square(input);
+            double area = input * input;
 
             // Act & Assert
-            Assert.That(square.CalculateArea(), Is.EqualTo(input * input));
+            Assert.AreEqual(square.CalculateArea(), area);
         }
 
         [TestCase(10)]
@@ -41,9 +39,10 @@ namespace SecondHomework.GeometricShapes.Tests
         {
             // Arrange
             Square square = new Square(input);
+            double perimeter = input * 4;
 
             // Act & Assert
-            Assert.AreEqual(square.CalculatePerimeter(), input * 4);
+            Assert.AreEqual(square.CalculatePerimeter(), perimeter);
         }
 
 

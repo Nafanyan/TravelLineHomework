@@ -1,5 +1,4 @@
-﻿using SecondHomework.ConcreteShape;
-
+﻿
 namespace SecondHomework.GeometricShapes
 {
     public class Circle : Shape
@@ -9,7 +8,7 @@ namespace SecondHomework.GeometricShapes
         public double Radius
         {
             get { return _radius; }
-            set 
+            set
             {
                 ValidateData(value);
                 _radius = value;
@@ -19,7 +18,16 @@ namespace SecondHomework.GeometricShapes
         public Circle(double radius)
         {
             Radius = radius;
-            shape = new CircleShape(radius);
+        }
+
+        public override double CalculateArea()
+        {
+            return Math.PI * _radius * _radius;
+        }
+
+        public override double CalculatePerimeter()
+        {
+            return 2 * Math.PI * _radius;
         }
     }
 }
