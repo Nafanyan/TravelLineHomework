@@ -5,49 +5,43 @@ namespace Calculator.Controller
 {
     internal class MainController
     {
-        private IApplication _application;
-        private IViews _views;
+        private ICalculator _icalculator;
+        private IMessageShow _views;
         private string? _source;
         public void Start()
         {
-            _views = new ConsoleView();
-            _views.StartPrint();
+            _views = new ConsoleMessageShow();
+            _views.GreetingMessageShow();
 
-            _application = SwapModel();
-
-            while (_source != "exit")
+            while (true)
             {
-                _source = Console.ReadLine();
+                _icalculator = SwapModel();
 
-                if (_source == "swap") _application = SwapModel();
+                if (_source == "exit") return;
 
-                else
-                {
-                    if (_application is CalculatorSteps) _source = InputForStepModel();
+                if (_icalculator is CalculatorSteps) _source = InputForStepModel();
 
-                    _application.Start(_source);
-                    _views.PrintData(_application.Result());
-                    _views.EndPrint();
-                }
-
+                _icalculator.Start(_source);
+                _views.MessageShow(_icalculator.Result());
             }
         }
 
-        private IApplication SwapModel()
+        private ICalculator SwapModel()
         {
-            _views.PrintOptions();
-            string options = Console.ReadLine();
-            if (options == "1") return new CalculatorRevPol();
- 
-            if (options == "2") return new CalculatorSteps();
+            _views.AvailableModesMessageShow();
+            _source = _views.InputMessageShow();
 
-            return SwapModel();
+            if (_source.Split(' ').Length < 3 || !_source.Contains(' ')) return new CalculatorSteps();
+
+            else return new CalculatorRevPol();
+
         }
 
         private string InputForStepModel()
         {
-            string operat = Console.ReadLine();
-            string operand = Console.ReadLine();
+            string operat = _views.InputMessageShow();
+            string operand = _views.InputMessageShow();
+            if (_source.Length > 1) _source = _source.Remove(_source.Length - 1);
             return $"{_source} {operat} {operand}";
         }
     }
