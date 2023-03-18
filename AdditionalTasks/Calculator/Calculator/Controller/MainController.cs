@@ -1,47 +1,72 @@
-﻿using Calculator.Models;
+﻿using Calculator.Exceptions;
+using Calculator.Models;
 using Calculator.Views;
 
 namespace Calculator.Controller
 {
     internal class MainController
     {
-        private ICalculator _icalculator;
-        private IMessageShow _views;
+        private BaseCalculator _baseCalculator;
+        private readonly IShowMessage _views;
         private string? _source;
-        public void Start()
+        public MainController()
         {
             _views = new ConsoleMessageShow();
-            _views.GreetingMessageShow();
-
-            while (true)
-            {
-                _icalculator = SwapModel();
-
-                if (_source == "exit") return;
-
-                if (_icalculator is CalculatorSteps) _source = InputForStepModel();
-
-                _icalculator.Start(_source);
-                _views.MessageShow(_icalculator.Result());
-            }
         }
 
-        private ICalculator SwapModel()
+        public void Start()
         {
-            _views.AvailableModesMessageShow();
-            _source = _views.InputMessageShow();
+            _views.GreetingShowMessage();
+            while (true)
+            {
+                try
+                {
+                    _baseCalculator = SwapModel();
 
-            if (_source.Split(' ').Length < 3 || !_source.Contains(' ')) return new CalculatorSteps();
+                    if (_source == "exit") return;
 
-            else return new CalculatorRevPol();
+                    if (_baseCalculator is CalculatorSteps) _source = InputForStepModel();
+
+                    _baseCalculator.Start(_source);
+                    _views.ResultShowMessage(_baseCalculator.Result);
+                }
+
+                catch (CalculatorRevPolArgumentException arg)
+                {
+                    _views.ShowMessage($"Error in Polish notation mode: {arg.Message}.\n");
+                }
+                catch (CalculationStepsArgumentException args)
+                {
+                    _views.ShowMessage($"Error in step-by-step mode: {args.Message}.\n");
+                }
+
+            }
+
+        }
+
+        private Models.BaseCalculator SwapModel()
+        {
+            _views.AvailableModesShowMessage();
+            _source = _views.UserInput();
+
+            if (_source.Split(' ').Length < 3 || !_source.Contains(' '))
+            {
+                _views.ShowMessage("Step-by-step mode is selected");
+                _views.ShowMessage(_source);
+                return new CalculatorSteps();
+            }
+            else
+            {
+                _views.ShowMessage("The Polish notation mode is selected");
+                return new CalculatorRevPol();
+            }
 
         }
 
         private string InputForStepModel()
         {
-            string operat = _views.InputMessageShow();
-            string operand = _views.InputMessageShow();
-            if (_source.Length > 1) _source = _source.Remove(_source.Length - 1);
+            string operat = _views.UserInput();
+            string operand = _views.UserInput();
             return $"{_source} {operat} {operand}";
         }
     }
