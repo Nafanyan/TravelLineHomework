@@ -1,7 +1,10 @@
 ﻿
+using SecondHomework.Ecxeptions;
+using SecondHomework.Interfaces;
+
 namespace SecondHomework.GeometricShapes
 {
-    public class Square : Shape
+    public class Square : IShape
     {
         private double _side;
         public double Side
@@ -18,14 +21,20 @@ namespace SecondHomework.GeometricShapes
             Side = side;
         }
 
-        public override double CalculateArea()
+        public double CalculateArea()
         {
             return _side * _side;
         }
 
-        public override double CalculatePerimeter()
+        public double CalculatePerimeter()
         {
             return _side * 4;
         }
+
+        private void ValidateData(double value)
+        {
+            if (value < 0) throw new NegativeArgumentException("The square length parameter cannot be negative", value.ToString());
+        }
+
     }
 }

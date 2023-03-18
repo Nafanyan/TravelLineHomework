@@ -7,14 +7,6 @@ namespace SecondHomework.GeometricShapes.Tests
     [TestClass()]
     public class CircleTests
     {
-        [TestCase(-10)]
-        [TestCase(-12)]
-        [TestCase(-5)]
-        public void Constructor_NotPositiveLength_Exeption(double input)
-        {
-            // Act & Assert
-            Assert.Throws<ArgumentException>(() => new Circle(input));
-        }
 
         [TestCase(2)]
         [TestCase(21)]

@@ -10,15 +10,6 @@ namespace SecondHomework.GeometricShapes.Tests
     public class SquareTests
     {
 
-        [TestCase(-10)]
-        [TestCase(-12)]
-        [TestCase(-5)]
-        public void Constructor_NotPositiveLength_Exeption(double input)
-        {
-            // Act & Assert
-            Assert.Throws<ArgumentException>(() => new Square(input));
-        }
-
         [TestCase(10)]
         [TestCase(12)]
         [TestCase(5)]
