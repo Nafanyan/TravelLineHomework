@@ -1,67 +1,45 @@
 ﻿
+using Calculator.Exceptions;
 using Calculator.ValidateData;
 
 namespace Calculator.Models
 {
-    public class CalculatorRevPol : ICalculator
+    public class CalculatorRevPol : BaseCalculator
     {
-        private Stack<double> nums;
+        private Stack<double> stackNums;
 
         public override void Start(string source)
         {
             validateData = new ValidateCalculatorRevPol();
             base.Start(source);
 
-            if (validInput) return;
-
             ParseString(source);
-            result = Convert.ToString(nums.Pop());
+            result = Convert.ToString(stackNums.Pop());
         }
-
-        public override string Result() => result;
 
         private void ParseString(string source)
         {
-            nums = new Stack<double>();
+            stackNums = new Stack<double>();
             double supNum;
+
+            double firstNum;
+            double secoNum;
 
             foreach (string el in source.Split(' '))
             {
-                if (el.Contains('+') || el.Contains('-') || el.Contains('/') || el.Contains('*'))
+                if (el.Length == 1 && BaseCalculator.Operators.Contains(Convert.ToChar(el)))
                 {
-                    ArithmeticOperation(Convert.ToChar(el));
+                    secoNum = stackNums.Pop();
+                    firstNum = stackNums.Pop();
+                    supNum = ArithmeticOperation(firstNum, secoNum, Convert.ToChar(el));
+                    if (Double.IsInfinity(supNum))
+                    {
+                        throw new CalculatorRevPolArgumentException("The result is going beyond the permissible limits");
+                    }
+                    stackNums.Push(supNum);
                 }
-                if (Double.TryParse(el, out supNum)) nums.Push(supNum);
+                if (Double.TryParse(el, out supNum)) stackNums.Push(supNum);
             }
         }
-
-        private void ArithmeticOperation(char oper)
-        {
-            double firstNum;
-            double secoNum;
-            secoNum = nums.Pop();
-            firstNum = nums.Pop();
-
-            switch (oper)
-            {
-                case '+':
-                    nums.Push(firstNum + secoNum);
-                    break;
-
-                case '-':
-                    nums.Push(firstNum - secoNum);
-                    break;
-
-                case '*': nums.Push(firstNum * secoNum);
-                    break;
-
-                case '/': nums.Push(Math.Round((firstNum / secoNum), 3));
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
     }
 }

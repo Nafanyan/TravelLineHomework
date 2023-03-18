@@ -1,32 +1,31 @@
 ﻿
 namespace Calculator.Views
 {
-    internal class ConsoleMessageShow : IMessageShow
+    internal class ConsoleMessageShow : IShowMessage
     {
-        private BasicPhrases _basicPhrases;
-        public ConsoleMessageShow()
+        public void GreetingShowMessage()
         {
-            _basicPhrases = new BasicPhrases();
-        }
-        public void MessageShow(string source)
-        {
-            Console.Write($"= {source}");
-            Console.WriteLine();
+            Console.Write(BasicPhrases.Greeting);
         }
 
-        public void GreetingMessageShow()
+        public void ResultShowMessage(string result)
         {
-            Console.Write(_basicPhrases.Greeting);
+            Console.WriteLine($"= {result}");
         }
 
-        public void AvailableModesMessageShow()
+        public void AvailableModesShowMessage()
         {
-            Console.WriteLine(_basicPhrases.AviableModes);
+            Console.WriteLine(BasicPhrases.AviableModes);
         }
 
-        public string? InputMessageShow()
+        public void ShowMessage(string message)
+        {
+            Console.WriteLine(message);
+        }
+        public string? UserInput()
         {
             return Console.ReadLine();
         }
+
     }
 }

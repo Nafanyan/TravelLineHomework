@@ -1,9 +1,10 @@
 ﻿
+using Calculator.Exceptions;
 using Calculator.ValidateData;
 
 namespace Calculator.Models
 {
-    public class CalculatorSteps : ICalculator
+    public class CalculatorSteps : BaseCalculator
     {
         
         public override void Start(string source)
@@ -11,36 +12,17 @@ namespace Calculator.Models
             validateData = new ValidateCalculatorSteps();
             base.Start(source);
 
-            if (validInput) return;
+            string[] splitInput = source.Split(' ');
+            double doubleResult = ArithmeticOperation(Convert.ToDouble(splitInput[0]),
+                Convert.ToDouble(splitInput[2]),
+                Convert.ToChar(splitInput[1]));
 
-            string[] elements = source.Split(' ');
-            result = ArithmeticOperation(Convert.ToDouble(elements[0]), 
-                Convert.ToDouble(elements[2]), 
-                Convert.ToChar(elements[1]));
-        }
-
-        public override string Result() => result;
-
-        private string ArithmeticOperation(double firstNum, double secoNum, char oper)
-        {
-
-            switch (oper)
+            if (Double.IsInfinity(doubleResult))
             {
-                case '+':
-                    return Convert.ToString(firstNum + secoNum);
-
-                case '-':
-                    return Convert.ToString(firstNum - secoNum);
-
-                case '*':
-                    return Convert.ToString(firstNum * secoNum);
-
-                case '/':
-                    return Convert.ToString(Math.Round((firstNum / secoNum), 3));
-
-                default:
-                    return "";
+                throw new CalculationStepsArgumentException("The result is going beyond the permissible limits");
             }
+
+            result = Convert.ToString(doubleResult);
         }
 
     }

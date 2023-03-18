@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Calculator.Exceptions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
@@ -20,24 +21,23 @@ namespace Calculator.Models.Tests
             calculator.Start(input);
 
             // Assert
-            Assert.AreEqual(calculator.Result(), output);
+            Assert.AreEqual(calculator.Result, output);
         }
 
-        [TestCase("1 2 3", "Input error")]
-        [TestCase("     ", "Input error")]
-        [TestCase("- - 1", "Input error")]
-        [TestCase("/    ", "Input error")]
-        [TestCase("- 2 +", "Input error")]
-        public void Start_NotCorrectData_StringError(string input, string output)
+        [TestCase("1 2 3")]
+        [TestCase("     ")]
+        [TestCase("- - 1")]
+        [TestCase("/    ")]
+        [TestCase("- 2 +")]
+        [TestCase("-2+")]
+        [TestCase("-2 +")]
+        public void Start_NotCorrectData_StringError(string input)
         {
             // Arrange
             CalculatorSteps calculator = new CalculatorSteps();
 
-            // Act
-            calculator.Start(input);
-
-            // Assert
-            Assert.AreEqual(calculator.Result(), output);
+            // Act & Assert
+            Assert.Throws<CalculationStepsArgumentException>(() => calculator.Start(input));
         }
     }
 }

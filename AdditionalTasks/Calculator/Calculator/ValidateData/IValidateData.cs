@@ -1,8 +1,8 @@
 ﻿
 namespace Calculator.ValidateData
 {
-    public interface IValidateData
+    public interface IValidation
     {
-        public bool Validate(string source);
+        public void Validation(string source);
     }
 }

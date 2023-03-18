@@ -3,20 +3,9 @@ namespace Calculator.Views
 {
     internal class BasicPhrases
     {
-        public string Greeting
-        {
-            get
-            {
-                return "Hi! This is a simple arithmetic calculator.";
-            }
-        }
+        public const string Greeting = "Hi! This is a simple arithmetic calculator.";
+        
+        public const string AviableModes = "Enter the example step by step or in reverse Polish notation (for example 2 1 -):";
 
-        public string AviableModes
-        {
-            get
-            {
-                return "Enter the example step by step or in reverse Polish notation (for example 2 1 -):";
-            }
-        }
     }
 }

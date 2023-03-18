@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Calculator.Exceptions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
@@ -19,22 +20,24 @@ namespace Calculator.Models.Tests
             calculator.Start(input);
 
             // Assert
-            Assert.AreEqual(calculator.Result(), output);
+            Assert.AreEqual(calculator.Result, output);
         }
 
-        [TestCase("1 2 + 10 12 * - 2 10 / + 12 8 *", "Input error")]
-        [TestCase("11 2 2 ", "Input error")]
-        [TestCase("90 9", "Input error")]
-        public void Start_NotCorrectData_StringError(string input, string output)
+        [TestCase("1 2 + 10 12 * - 2 10 / + 12 8 *")]
+        [TestCase("11 2 2 ")]
+        [TestCase("90 9")]
+        [TestCase("90 + 9")]
+        [TestCase("90  - - 9")]
+        [TestCase("9asdasf  - asd asdsa")]
+        public void Start_NotCorrectData_StringError(string input)
         {
             // Arrange
             CalculatorRevPol calculator = new CalculatorRevPol();
 
-            // Act
-            calculator.Start(input);
+            // Act & Assert
+            Assert.Throws<CalculatorRevPolArgumentException>(() => calculator.Start(input));
 
-            // Assert
-            Assert.AreEqual(calculator.Result(), output);
+
         }
     }
 }
