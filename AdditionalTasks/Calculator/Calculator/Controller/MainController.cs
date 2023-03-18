@@ -21,9 +21,12 @@ namespace Calculator.Controller
             {
                 try
                 {
-                    _baseCalculator = SwapModel();
+                    _views.AvailableModesShowMessage();
+                    _source = _views.UserInput();
 
                     if (_source == "exit") return;
+
+                    _baseCalculator = SwapModel();
 
                     if (_baseCalculator is CalculatorSteps) _source = InputForStepModel();
 
@@ -44,10 +47,9 @@ namespace Calculator.Controller
 
         }
 
-        private Models.BaseCalculator SwapModel()
+        private BaseCalculator SwapModel()
         {
-            _views.AvailableModesShowMessage();
-            _source = _views.UserInput();
+
 
             if (_source.Split(' ').Length < 3 || !_source.Contains(' '))
             {

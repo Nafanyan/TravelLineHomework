@@ -1,4 +1,5 @@
 ﻿
+using Calculator.Exceptions;
 using Calculator.ValidateData;
 
 namespace Calculator.Models
@@ -30,7 +31,12 @@ namespace Calculator.Models
                 {
                     secoNum = stackNums.Pop();
                     firstNum = stackNums.Pop();
-                    stackNums.Push(ArithmeticOperation(firstNum, secoNum, Convert.ToChar(el)));
+                    supNum = ArithmeticOperation(firstNum, secoNum, Convert.ToChar(el));
+                    if (Double.IsInfinity(supNum))
+                    {
+                        throw new CalculatorRevPolArgumentException("The result is going beyond the permissible limits");
+                    }
+                    stackNums.Push(supNum);
                 }
                 if (Double.TryParse(el, out supNum)) stackNums.Push(supNum);
             }
