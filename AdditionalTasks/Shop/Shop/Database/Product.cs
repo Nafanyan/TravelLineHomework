@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Shop.Databases;
+namespace Shop.Database;
 
 public partial class Product
 {
@@ -18,4 +18,10 @@ public partial class Product
     public int CountInStock { get; set; }
 
     public string TypeProduct { get; set; } = null!;
+
+    public override string ToString()
+    {
+        return $"{Id} {NameProduct} {WeightProduct}-kg {Price} {DescriptionProduct} {CountInStock}";
+    }
+
 }
