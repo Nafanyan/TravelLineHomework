@@ -40,12 +40,12 @@ namespace Shop.Controllers
 
                     if (_userInput == "1")
                     {
-                        ModelSelection(new BuyProductModel(), _views);
+                        ModelSelection(new BuyProductModel(_db, _views), _views);
                     }
 
                     if (_userInput == "2")
                     {
-                        ModelSelection(new AddProductModel(), _views);
+                        ModelSelection(new AddProductModel(_db, _views), _views);
                     }
                     AllProductView();
                     _views.MessageShow("");
@@ -67,9 +67,9 @@ namespace Shop.Controllers
                 _views.MessageShow("");
             }
         }
-        private void ModelSelection(IProductModel model, IViews view)
+        private void ModelSelection(BaseProductModel model, IViews view)
         {
-            model.Start(_db, _views);
+            model.Start();
             _views.MessageShow($"Состояние продукта: {model.Result.ToString()}");
         }
 

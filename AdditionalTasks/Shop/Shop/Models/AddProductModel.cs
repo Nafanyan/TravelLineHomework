@@ -7,47 +7,76 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Models
 {
-    internal class AddProductModel : IProductModel
+    internal class AddProductModel : BaseProductModel
     {
         private Product _product;
         private ValidateAddProduct _validate;
+
         public Product Result { get { return _product; } }
 
-        public AddProductModel()
+        public AddProductModel(IRepository<Product> db, IViews views) : base(db, views)
         {
             _validate = new ValidateAddProduct();
         }
 
-        public void Start(IRepository<Product> db, IViews views)
+        public override void Start()
         {
-            string userInput = _validate.NullOrWhiteSpace(views.UserInput());
-            _validate.CheckCategory(db, userInput);
-
             _product = new Product();
-            _product.TypeProduct = userInput;
 
-            views.MessageShow(BasicPhrases.inputName);
-            userInput = views.UserInput();
-            _product.NameProduct = _validate.NullOrWhiteSpace(userInput);
+            _product.TypeProduct = AddCategory();
 
-            views.MessageShow(BasicPhrases.inputWeight);
-            userInput = views.UserInput();
-            _product.WeightProduct = (float)_validate.WeightCheck(userInput);
+            _product.NameProduct = AddName();
 
-            views.MessageShow(BasicPhrases.inputPrice);
-            userInput = views.UserInput();
-            _product.Price = _validate.PriceCheck(userInput);
+            _product.WeightProduct = AddWeight();
 
-            views.MessageShow(BasicPhrases.inputDescription);
-            userInput = views.UserInput();
-            _product.DescriptionProduct = _validate.NullOrWhiteSpace(userInput);
+            _product.Price = AddPrice();
 
-            views.MessageShow(BasicPhrases.inputCount);
-            userInput = views.UserInput();
-            _product.CountInStock = _validate.CountCheck(userInput);
+            _product.DescriptionProduct = AddDescription();
+
+            _product.CountInStock = AddCount();
 
             db.Create(_product);
             db.Save();
+        }
+
+        private string AddCategory()
+        {
+            string userInput = views.UserInput();
+            _validate.CheckCategory(db, userInput);
+            return userInput;
+        }
+        private string AddName()
+        {
+            views.MessageShow(BasicPhrases.inputName);
+            string userInput = views.UserInput();
+            return _validate.NullOrWhiteSpace(userInput);
+        }
+        private float AddWeight()
+        {
+            views.MessageShow(BasicPhrases.inputWeight);
+            string userInput = views.UserInput();
+            return (float)_validate.WeightCheck(userInput);
+        }
+
+        private decimal AddPrice()
+        {
+            views.MessageShow(BasicPhrases.inputPrice);
+            string userInput = views.UserInput();
+            return _validate.PriceCheck(userInput);
+        }
+
+        private string AddDescription()
+        {
+            views.MessageShow(BasicPhrases.inputDescription);
+            string userInput = views.UserInput();
+            return _validate.NullOrWhiteSpace(userInput);
+        }
+
+        private int AddCount()
+        {
+            views.MessageShow(BasicPhrases.inputCount);
+            string userInput = views.UserInput();
+            return _validate.CountCheck(userInput);
         }
     }
 }

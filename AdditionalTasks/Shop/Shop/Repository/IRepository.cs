@@ -1,6 +1,8 @@
-﻿namespace Shop.Repository
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Shop.Repository
 {
-    interface IRepository<Product> : IDisposable
+    public interface IRepository<Product> : IDisposable
     {
         IEnumerable<Product> GetAllProducts();
         Product GetProduct(int id);

@@ -6,37 +6,46 @@ using Shop.Views;
 
 namespace Shop.Models
 {
-    internal class BuyProductModel : IProductModel
+    internal class BuyProductModel : BaseProductModel
     {
-        public Product Result { get { return _product; } }
-
-        private Product _product;
         private ValidateBuyProduct _validate;
-        public BuyProductModel()
+        public BuyProductModel(IRepository<Product> db, IViews views) : base(db, views)
         {
             _validate = new ValidateBuyProduct();
         }
 
-        public void Start(IRepository<Product> db, IViews views)
+
+        public override void Start()
         {
             string userInput = views.UserInput();
+            SameCategoryProductView(userInput);
+
+            userInput = InputId();
+
+            product = db.GetProduct(Convert.ToInt32(userInput));
+            _validate.CheckCount(product);
+
+            product.CountInStock--;
+            db.Update(product);
+            db.Save();
+        }
+
+        private void SameCategoryProductView(string userInput)
+        {
             _validate.CheckCategory(db, userInput);
 
             foreach (Product product in db.GetAllProducts().Where(p => p.TypeProduct == userInput))
             {
                 views.MessageShow(product.ToString());
             }
+        }
 
+        private string InputId()
+        {
             views.MessageShow(BasicPhrases.inputID);
-            userInput = views.UserInput();
+            string userInput = views.UserInput();
             _validate.CheckID(db, userInput);
-
-            _product = db.GetProduct(Convert.ToInt32(userInput));
-            _validate.CheckCount(_product);
-
-            _product.CountInStock--;
-            db.Update(_product);
-            db.Save();
+            return userInput;
         }
     }
 }
