@@ -15,6 +15,8 @@ namespace Shop.Controllers
         private readonly IRepository<Product> _db;
         private readonly IViews _views;
         private readonly ValidateHomeController _validate;
+
+        private BaseProductModel _model;
         private string? _userInput;
         public HomeController()
         {
@@ -38,15 +40,10 @@ namespace Shop.Controllers
                     _views.MessageShow("Выберите категорию из имеющихся:");
                     _views.MessageShow(GetCurrentCategories());
 
-                    if (_userInput == "1")
-                    {
-                        ModelSelection(new BuyProductModel(_db, _views), _views);
-                    }
+                    ModelSelection();
+                    _model.Start();
+                    _views.MessageShow($"Состояние продукта {_model.Result}");
 
-                    if (_userInput == "2")
-                    {
-                        ModelSelection(new AddProductModel(_db, _views), _views);
-                    }
                     AllProductView();
                     _views.MessageShow("");
                 }
@@ -67,10 +64,12 @@ namespace Shop.Controllers
                 _views.MessageShow("");
             }
         }
-        private void ModelSelection(BaseProductModel model, IViews view)
+        private void ModelSelection()
         {
-            model.Start();
-            _views.MessageShow($"Состояние продукта: {model.Result.ToString()}");
+            if (_userInput == "1") _model = new BuyProductModel(_db, _views);
+            if (_userInput == "2") _model = new AddProductModel(_db, _views);
+
+            return;
         }
 
         private string GetCurrentCategories()
@@ -87,7 +86,7 @@ namespace Shop.Controllers
         private void AllProductView()
         {
             _views.MessageShow("\nКаталог на данный момент:");
-            foreach (Product product in _db.GetAllProducts())
+            foreach (Product product in _db.GetAllProducts().OrderBy(p => p.TypeProduct))
             {
                 _views.MessageShow(product.ToString());
             }
