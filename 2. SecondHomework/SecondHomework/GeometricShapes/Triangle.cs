@@ -1,7 +1,10 @@
 ﻿
+using SecondHomework.Ecxeptions;
+using SecondHomework.Interfaces;
+
 namespace SecondHomework.GeometricShapes
 {
-    public class Triangle : Shape
+    public class Triangle : IShape
     {
         private double _firstSide;
         private double _secondSide;
@@ -40,27 +43,43 @@ namespace SecondHomework.GeometricShapes
             FirstSide = firstSide;
             SecondSide = secondSide;
             ThirdSide = thirdSide;
-            ValidateSides();
+            ValidateSides(firstSide, secondSide, thirdSide);
         }
 
-        public override double CalculateArea()
+        public double CalculateArea()
         {
             double p = CalculatePerimeter() / 2;
             return Math.Sqrt(p * (p - _firstSide) * (p - _secondSide) * (p - _thirdSide));
         }
 
-        public override double CalculatePerimeter()
+        public double CalculatePerimeter()
         {
             return _firstSide + _secondSide + _thirdSide;
         }
-
-        private void ValidateSides()
+        private void ValidateData(double value)
         {
-            if (! (_firstSide + _secondSide > _thirdSide)) throw new ArgumentException();
-            if (!(_secondSide + _thirdSide > _firstSide)) throw new ArgumentException();
-            if (!(_firstSide + _thirdSide > _secondSide)) throw new ArgumentException();
+            if (value < 0) throw new NegativeArgumentException("The triangle length parameter cannot be negative", value.ToString());
         }
 
+        private void ValidateSides(double firstSide, double secondSide, double thirdSide)
+        {
+            if (firstSide + secondSide < thirdSide)
+            {
+                throw new SidesTriangleArgumentException("The sum of two sides of a triangle cannot be less than the value of one side",
+                    firstSide.ToString(), secondSide.ToString(), thirdSide.ToString());
+            }
 
+            if (secondSide + thirdSide < firstSide)
+            {
+                throw new SidesTriangleArgumentException("The sum of two sides of a triangle cannot be less than the value of one side",
+                    secondSide.ToString(), thirdSide.ToString(), firstSide.ToString());
+            }
+
+            if (firstSide + thirdSide < secondSide)
+            {
+                throw new SidesTriangleArgumentException("The sum of two sides of a triangle cannot be less than the value of one side",
+                    firstSide.ToString(), thirdSide.ToString(), secondSide.ToString());
+            }
+        }
     }
 }

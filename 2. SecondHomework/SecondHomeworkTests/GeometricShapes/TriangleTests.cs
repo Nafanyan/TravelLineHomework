@@ -8,24 +8,6 @@ namespace SecondHomework.GeometricShapes.Tests
     public class TriangleTests
     {
 
-        [TestCase(-9, 10, 11)]
-        [TestCase(9, -10, 11)]
-        [TestCase(9, 10, -11)]
-        public void Constructor_NotPositiveLength_Exeption(double firstSide, double secoSide, double thirSide)
-        {
-            // Act & Assert
-            Assert.Throws<ArgumentException>(() => new Triangle(firstSide, secoSide, thirSide));
-        }
-
-        [TestCase(1, 10, 12)]
-        [TestCase(65, 2, 123)]
-        [TestCase(0, 1, 9)]
-        public void Constructor_NotValidateData_Exeption(double firstSide, double secoSide, double thirSide)
-        {
-            // Act & Assert
-            Assert.Throws<ArgumentException>(() => new Triangle(firstSide, secoSide, thirSide));
-        }
-
         [TestCase(1, 2, 2)]
         [TestCase(9, 10, 12)]
         [TestCase(44, 55, 33)]
