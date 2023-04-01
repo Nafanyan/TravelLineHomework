@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToDoManager.Domain;
+using ToDoManager.Dto;
 
 namespace ToDoManager.Controllers
 {
@@ -21,17 +22,6 @@ namespace ToDoManager.Controllers
         }
 
         /// <summary>
-        /// Возвращает ToDo по id 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            return Ok();
-        }
-
-        /// <summary>
         /// Создает ToDo
         /// </summary>
         /// <param name="createDto"></param>
@@ -44,6 +34,39 @@ namespace ToDoManager.Controllers
 
             _toDos.Add(toDo);
 
+            return Ok();
+        }
+
+        /// <summary>
+        /// Возвращает ToDo по id 
+        /// </summary>
+        /// <param "id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var result = _toDos.Where(t => t.Id == id).FirstOrDefault();
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Обновляет значение ToDo по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="createDto"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public IActionResult PutById(int id, [FromBody] CreateToDoDto createDto)
+        {
+            var result = _toDos.Remove(_toDos.Where(t => t.Id == id).FirstOrDefault());
+            _toDos.Add(new ToDo(id, createDto.Title));
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteById(int id)
+        {
+            var result = _toDos.Remove(_toDos.Where(t => t.Id == id).FirstOrDefault());
             return Ok();
         }
     }
