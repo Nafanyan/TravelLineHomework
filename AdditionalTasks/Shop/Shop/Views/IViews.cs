@@ -6,8 +6,8 @@ namespace Shop.Views
     internal interface IViews
     {
         public void StartPage();
-        public void Print(string print);
-        public string? InputUser();
+        public void MessageShow(string msg);
+        public string? UserInput();
     }
 
 }

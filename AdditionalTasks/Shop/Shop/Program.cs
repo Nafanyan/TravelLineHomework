@@ -6,7 +6,7 @@ namespace Shop
     {
         static void Main(string[] args)
         {
-            IController controller = new MainController();
+            HomeController controller = new HomeController();
             controller.Start();
         }
     }

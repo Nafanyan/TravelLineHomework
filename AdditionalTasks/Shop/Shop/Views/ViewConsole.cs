@@ -9,12 +9,12 @@ namespace Shop.Views
                 "\nНеобходимо выбрать следующее действие:\n1 - купить товар, 2 - добавить товар. Для выхода введите \"exit\"");
         }
 
-        public void Print(string print)
+        public void MessageShow(string print)
         {
             Console.WriteLine(print);
         }
 
-        public string? InputUser()
+        public string? UserInput()
         {
             return Console.ReadLine();
         }
