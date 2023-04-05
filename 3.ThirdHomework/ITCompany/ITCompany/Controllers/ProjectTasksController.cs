@@ -2,6 +2,7 @@
 using ITCompany.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Eventing.Reader;
+using System.Runtime.CompilerServices;
 
 namespace ITCompany.Controllers
 {
@@ -23,7 +24,7 @@ namespace ITCompany.Controllers
             _id = _id + 1;
 
             _projectTasks.Add(new ProjectTask(_id, createProjectTaskDTO.Description, 
-                createProjectTaskDTO.EmployeeId, projectId));
+                -1, projectId));
 
             SendDataToProject(projectId);
 
@@ -79,12 +80,12 @@ namespace ITCompany.Controllers
         [HttpPut("project/{projectId}/[controller]/{id}")]
         public IActionResult PutById(long projectId, long id, [FromBody] CreateProjectTaskDTO createProjectTaskDTO)
         {
-            _projectTasks.Remove(_projectTasks.Where(p => p.TaskId == id).FirstOrDefault());
-
-            ProjectTask projectTask = new ProjectTask(id, createProjectTaskDTO.Description, createProjectTaskDTO.EmployeeId, projectId);
+            ProjectTask projectTask = _projectTasks.Where(p => p.TaskId == id).FirstOrDefault();
+            _projectTasks.Remove(projectTask);
 
             SendDataToProject(projectId);
-            _projectTasks.Add(projectTask);
+
+            _projectTasks.Add(new ProjectTask(id, createProjectTaskDTO.Description, projectTask.EmployeeId, projectId));
 
             return Ok();
         }
@@ -134,6 +135,23 @@ namespace ITCompany.Controllers
             ProjectsController.UpdatingFromProjectTusk(createProjectDTO, projectId);
         }
 
+        /// <summary>
+        /// Позволяет принимать обновленные данные из контроллера EmployeesController для актуальности данных
+        /// </summary>
+        /// <param name="projectTaskId"></param>
+        /// <param name="employeeId"></param>
+        public static void UpdatingFromEmployee(long projectTaskId, long employeeId)
+        {
+            ProjectTask projectTask = _projectTasks.Where(p => p.TaskId == projectTaskId).FirstOrDefault();
 
+            if (projectTask.EmployeeId == employeeId)
+            {
+                projectTask.EmployeeId = -1;
+            }
+            else
+            {
+                projectTask.EmployeeId = employeeId;
+            }
+        }
     }
 }

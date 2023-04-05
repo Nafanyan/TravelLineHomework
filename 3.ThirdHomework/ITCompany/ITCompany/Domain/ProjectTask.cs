@@ -4,9 +4,9 @@ namespace ITCompany.Domain
     public class ProjectTask
     {
         public long TaskId { get; init; }
-        public string Description { get; init; }
-        public long EmployeeId { get; init; }
-        public long ProjectId { get; init; }
+        public string Description { get; set; }
+        public long EmployeeId { get; set; }
+        public long ProjectId { get; set; }
 
         public ProjectTask(long taskId, string description, long employeedId, long projectId)
         {
@@ -15,5 +15,6 @@ namespace ITCompany.Domain
             EmployeeId = employeedId;
             ProjectId = projectId;
         }
+
     }
 }

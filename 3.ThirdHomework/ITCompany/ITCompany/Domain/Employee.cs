@@ -6,7 +6,7 @@
         public string EmployeeName { get; set; }
         public string EmployeeSurname { get; set; }
         public string EmployeePost { get; set; }
-        public long EmployeeDepartamentId { get; set; }
+        public long ProjectTaskId { get; set; }
 
         public Employee (long employeeId, string employeeName, string employeeSurname, string employeePost, long employeeDepartamentId)
         {
@@ -14,7 +14,7 @@
             EmployeeName = employeeName;
             EmployeeSurname = employeeSurname;
             EmployeePost = employeePost;
-            EmployeeDepartamentId = employeeDepartamentId;
+            ProjectTaskId = employeeDepartamentId;
         }
     }
 }

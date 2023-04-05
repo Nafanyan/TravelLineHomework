@@ -7,6 +7,6 @@ namespace ITCompany.DTO
         public string Title { get; set; }
         public string Description { get; set; }
         public List<long> TaskIds { get; set; }
-        //public List<ProjectTasks> ProjectTasks { get; set; }
+
     }
 }
