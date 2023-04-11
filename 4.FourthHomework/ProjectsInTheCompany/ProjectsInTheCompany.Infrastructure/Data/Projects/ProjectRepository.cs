@@ -3,36 +3,22 @@ using ProjectsInTheCompany.Infrastructure.Foundation;
 
 namespace ProjectsInTheCompany.Infrastructure.Data.Projects
 {
-    public class ProjectRepository : BaseRepository<Project>
+    internal class ProjectRepository : BaseRepository<Project>, IProjectRepository
     {
         public ProjectRepository(ProjectsCompanyDbContext projectsCompanyDbContext) : base(projectsCompanyDbContext)
-        {
-
+        { 
         }
 
-        public void Add(Project project)
+        public override Project GetById(int id)
         {
-            throw new NotImplementedException();
+            return _dbSet.SingleOrDefault(p => p.Id == id);
         }
 
-        public void Delete(Project project)
+        public override void Update(Project values)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Project> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Project GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Project project)
-        {
-            throw new NotImplementedException();
+            Project project = GetById(values.Id);
+            project.UpdateTitle(values.Description);
+            project.UpdateDescription(values.Title);
         }
     }
 }

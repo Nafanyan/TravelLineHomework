@@ -4,7 +4,7 @@ namespace ProjectsInTheCompany.Domain.Employees
 {
     public interface IEmployeeRepository
     {
-        List<Employee> GetAll();
+        IReadOnlyList<Employee> GetAll();
         Employee GetById(int id);
         void Add(Employee employee);
         void Delete(Employee employee);

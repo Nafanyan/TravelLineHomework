@@ -4,7 +4,7 @@ namespace ProjectsInTheCompany.Domain.ProjectTasks
 {
     public interface IProjectTaskRepository
     {
-        List<ProjectTask> GetAll();
+        IReadOnlyList<ProjectTask> GetAll();
         ProjectTask GetById(int id);
         void Add(ProjectTask projectTask);
         void Delete(ProjectTask projectTask);

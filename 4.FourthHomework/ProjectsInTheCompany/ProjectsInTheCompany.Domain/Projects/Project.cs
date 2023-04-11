@@ -15,7 +15,6 @@ namespace ProjectsInTheCompany.Domain.Projects
             Description = description;
         }
 
-
         public void UpdateTitle (string title)
         {
             Title = title;

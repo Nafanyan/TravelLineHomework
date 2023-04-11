@@ -2,7 +2,7 @@
 {
     public interface IProjectRepository
     {
-        List<Project> GetAll();
+        IReadOnlyList<Project> GetAll();
         Project GetById(int id);
         void Add(Project project);
         void Delete(Project project);

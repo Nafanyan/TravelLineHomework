@@ -1,32 +1,24 @@
 ﻿using ProjectsInTheCompany.Domain.ProjectTasks;
+using ProjectsInTheCompany.Infrastructure.Foundation;
 
 namespace ProjectsInTheCompany.Infrastructure.Data.ProjectTasks
 {
-    internal class ProjectTaskRepository : IProjectTaskRepository
+    internal class ProjectTaskRepository : BaseRepository<ProjectTask>, IProjectTaskRepository
     {
-        public void Add(ProjectTask projectTask)
+        public ProjectTaskRepository(ProjectsCompanyDbContext projectsCompanyDbContext) : base(projectsCompanyDbContext)
         {
-            throw new NotImplementedException();
         }
 
-        public void Delete(ProjectTask projectTask)
+        public override ProjectTask GetById(int id)
         {
-            throw new NotImplementedException();
+            return _dbSet.SingleOrDefault(p => p.Id == id);
         }
 
-        public List<ProjectTask> GetAll()
+        public override void Update(ProjectTask values)
         {
-            throw new NotImplementedException();
-        }
-
-        public ProjectTask GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(ProjectTask projectTask)
-        {
-            throw new NotImplementedException();
+            ProjectTask projectTask = GetById(values.Id);
+            projectTask.UpdateDescription(values.Description);
+            projectTask.UpdateProject(values.Project);
         }
     }
 }

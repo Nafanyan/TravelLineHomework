@@ -1,32 +1,26 @@
 ﻿using ProjectsInTheCompany.Domain.Employees;
+using ProjectsInTheCompany.Infrastructure.Foundation;
 
 namespace ProjectsInTheCompany.Infrastructure.Data.Employees
 {
-    internal class EmployeeRepository : IEmployeeRepository
+    internal class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
     {
-        public void Add(Employee employee)
+        public EmployeeRepository(ProjectsCompanyDbContext projectsCompanyDbContext) : base(projectsCompanyDbContext)
         {
-            throw new NotImplementedException();
         }
 
-        public void Delete(Employee employee)
+        public override Employee GetById(int id)
         {
-            throw new NotImplementedException();
+            return _dbSet.SingleOrDefault(p => p.Id == id);
         }
 
-        public List<Employee> GetAll()
+        public override void Update(Employee values)
         {
-            throw new NotImplementedException();
-        }
+            Employee employee = GetById(values.Id);
 
-        public Employee GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Employee employee)
-        {
-            throw new NotImplementedException();
+            employee.UpdateName(values.Name);
+            employee.UpdateSurname(values.Surname);
+            employee.UpdateProjectTask(values.ProjectTask);
         }
     }
 }
