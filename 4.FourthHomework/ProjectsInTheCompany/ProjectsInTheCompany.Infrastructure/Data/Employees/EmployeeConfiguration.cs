@@ -16,8 +16,6 @@ namespace ProjectsInTheCompany.Infrastructure.Data.Employees
 
             builder.Property(e => e.Surname).HasMaxLength(100);
 
-            builder.HasOne(e => e.ProjectTask).WithOne(pt => pt.Employee)
-                .HasForeignKey<Employee>(e => e.ProjectTaskId).IsRequired();
         }
     }
 }

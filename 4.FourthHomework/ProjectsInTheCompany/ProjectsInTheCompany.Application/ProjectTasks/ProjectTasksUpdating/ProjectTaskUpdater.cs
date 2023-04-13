@@ -1,4 +1,5 @@
 ﻿using ProjectsInTheCompany.Application.ProjectTasks.Commands;
+using ProjectsInTheCompany.Domain.Projects;
 using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTasksUpdating
@@ -9,7 +10,8 @@ namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTasksUpdating
     }
     public class ProjectTaskUpdater : BaseProjectTaskUCase, IProjectTaskUpdater
     {
-        public ProjectTaskUpdater(IProjectTaskRepository projectTaskRepository) : base(projectTaskRepository)
+        public ProjectTaskUpdater(IProjectTaskRepository projectTaskRepository, IProjectRepository projectRepository) : 
+            base(projectTaskRepository, projectRepository)
         {
         }
 
@@ -17,6 +19,7 @@ namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTasksUpdating
         {
             ProjectTask projectTask = _projectTaskRepository.GetById(updateProjectTaskCommand.Id);
             projectTask.UpdateDescription(updateProjectTaskCommand.Description);
+
             projectTask.UpdateProject(updateProjectTaskCommand.Project);
 
             _projectTaskRepository.Update(projectTask);

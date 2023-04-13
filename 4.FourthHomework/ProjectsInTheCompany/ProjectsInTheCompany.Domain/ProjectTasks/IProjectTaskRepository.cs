@@ -1,4 +1,4 @@
-﻿using ProjectsInTheCompany.Domain.Projects;
+﻿using ProjectsInTheCompany.Domain.Employees;
 
 namespace ProjectsInTheCompany.Domain.ProjectTasks
 {
@@ -9,5 +9,6 @@ namespace ProjectsInTheCompany.Domain.ProjectTasks
         void Add(ProjectTask projectTask);
         void Delete(ProjectTask projectTask);
         void Update(ProjectTask projectTask);
+        void AddEmployee(int idProjectTask, Employee employee);
     }
 }

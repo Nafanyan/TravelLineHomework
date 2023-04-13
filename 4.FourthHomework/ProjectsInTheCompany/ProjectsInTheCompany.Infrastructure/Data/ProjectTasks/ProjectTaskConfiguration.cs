@@ -18,8 +18,6 @@ namespace ProjectsInTheCompany.Infrastructure.Data.ProjectTasks
             builder.HasOne(pt => pt.Employee).WithOne(e => e.ProjectTask)
                 .HasForeignKey<Employee>(e => e.ProjectTaskId).IsRequired();
 
-            builder.HasOne(pt => pt.Project).WithMany(p => p.ProjectTasks)
-                .HasForeignKey(pt => pt.ProjectId).IsRequired();
         }
     }
 }

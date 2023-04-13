@@ -10,8 +10,7 @@ namespace ProjectsInTheCompany.API.Mappers.ProjectTaskMappers
             return new UpdateProjectTaskCommand
             {
                 Id = updateProjectCommandDto.Id,
-                Description = updateProjectCommandDto.Description,
-                Project = updateProjectCommandDto.Project
+                Description = updateProjectCommandDto.Description
             };
         }
     }

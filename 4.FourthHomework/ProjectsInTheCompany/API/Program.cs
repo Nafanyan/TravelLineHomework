@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectsInTheCompany.Application;
+using ProjectsInTheCompany.Application.Projects.Command;
+using ProjectsInTheCompany.Application.Projects.ProjectsCreating;
 using ProjectsInTheCompany.Infrastructure;
 using ProjectsInTheCompany.Infrastructure.Foundation;
 
@@ -20,11 +22,15 @@ namespace API
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.AddApplication();
+            builder.Services.AddInfrastructure();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddInfrastructure();
-            builder.Services.AddApplication();
+
+
 
             var app = builder.Build();
 

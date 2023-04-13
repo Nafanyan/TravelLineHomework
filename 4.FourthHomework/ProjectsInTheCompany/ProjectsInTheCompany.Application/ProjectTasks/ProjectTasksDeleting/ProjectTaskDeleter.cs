@@ -1,4 +1,6 @@
-﻿using ProjectsInTheCompany.Domain.ProjectTasks;
+﻿using ProjectsInTheCompany.Application.ProjectTasks.Commands;
+using ProjectsInTheCompany.Domain.Projects;
+using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTaskDeleting
 {
@@ -8,7 +10,8 @@ namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTaskDeleting
     }
     public class ProjectTaskDeleter : BaseProjectTaskUCase, IProjectTaskDeleter
     {
-        public ProjectTaskDeleter(IProjectTaskRepository projectTaskRepository) : base(projectTaskRepository)
+        public ProjectTaskDeleter(IProjectTaskRepository projectTaskRepository, IProjectRepository projectRepository) : 
+            base(projectTaskRepository, projectRepository)
         {
         }
 

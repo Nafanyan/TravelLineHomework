@@ -1,6 +1,6 @@
-﻿using ProjectsInTheCompany.Application.Projects.Command;
-using ProjectsInTheCompany.Application.Projects.Commands;
+﻿using ProjectsInTheCompany.Application.Projects.Commands;
 using ProjectsInTheCompany.Domain.Projects;
+using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.Projects.ProjectsUpdating
 {

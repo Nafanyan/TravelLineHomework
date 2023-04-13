@@ -1,4 +1,5 @@
-﻿using ProjectsInTheCompany.Domain.ProjectTasks;
+﻿using ProjectsInTheCompany.Domain.Projects;
+using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTaskRecieving
 {
@@ -9,7 +10,8 @@ namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTaskRecieving
     }
     public class ProjectTaskReciever : BaseProjectTaskUCase, IProjectTaskReciever
     {
-        public ProjectTaskReciever(IProjectTaskRepository projectTaskRepository) : base(projectTaskRepository)
+        public ProjectTaskReciever(IProjectTaskRepository projectTaskRepository, IProjectRepository projectRepository) : 
+            base(projectTaskRepository, projectRepository)
         {
         }
 

@@ -1,5 +1,6 @@
 ﻿using ProjectsInTheCompany.Application.Employees.Commands;
 using ProjectsInTheCompany.Domain.Employees;
+using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.Employees.EmployeesUpdating
 {
@@ -9,7 +10,7 @@ namespace ProjectsInTheCompany.Application.Employees.EmployeesUpdating
     }
     public class EmployeeUpdater : BaseEmployeeUCase, IEmployeeUpdater
     {
-        public EmployeeUpdater(IEmployeeRepository employeeRepository) : base(employeeRepository)
+        public EmployeeUpdater(IEmployeeRepository employeeRepository, IProjectTaskRepository projectTaskRepository) : base(employeeRepository, projectTaskRepository)
         {
         }
 

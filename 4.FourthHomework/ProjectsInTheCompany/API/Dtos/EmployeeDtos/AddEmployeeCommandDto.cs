@@ -1,12 +1,10 @@
 ﻿using ProjectsInTheCompany.Domain.ProjectTasks;
 
-namespace ProjectsInTheCompany.Application.Employees.Commands
+namespace ProjectsInTheCompany.API.Dtos.EmployeeDtos
 {
-    public class AddEmployeeCommand
+    public class AddEmployeeCommandDto
     {
         public string Name { get; init; }
         public string Surname { get; init; }
-        public ProjectTask ProjectTask { get; init; }
-
     }
 }

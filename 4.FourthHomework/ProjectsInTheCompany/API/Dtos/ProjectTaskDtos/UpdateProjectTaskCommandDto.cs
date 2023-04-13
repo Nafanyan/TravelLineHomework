@@ -6,6 +6,5 @@ namespace ProjectsInTheCompany.API.Dtos.ProjectTaskDtos
     {
         public int Id { get; init; }
         public string Description { get; init; }
-        public Project Project { get; init; }
     }
 }

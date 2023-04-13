@@ -1,4 +1,5 @@
 ﻿using ProjectsInTheCompany.Domain.Employees;
+using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.Employees.EmployeesReceiving
 {
@@ -9,7 +10,7 @@ namespace ProjectsInTheCompany.Application.Employees.EmployeesReceiving
     }
     public class EmployeeReciever : BaseEmployeeUCase, IEmployeeReciever
     {
-        public EmployeeReciever(IEmployeeRepository employeeRepository) : base(employeeRepository)
+        public EmployeeReciever(IEmployeeRepository employeeRepository, IProjectTaskRepository projectTaskRepository) : base(employeeRepository, projectTaskRepository)
         {
         }
 

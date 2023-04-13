@@ -10,6 +10,7 @@ namespace ProjectsInTheCompany.API.Mappers.ProjectMappers
             return new AddProjectCommand
             {
                 Title = addProjectCommandDto.Title,
+                Description = addProjectCommandDto.Description
             };
         }
     }

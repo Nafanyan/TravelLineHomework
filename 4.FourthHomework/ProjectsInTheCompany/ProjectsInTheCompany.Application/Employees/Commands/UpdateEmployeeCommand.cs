@@ -4,9 +4,9 @@ namespace ProjectsInTheCompany.Application.Employees.Commands
 {
     public class UpdateEmployeeCommand
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public string Surname { get; private set; }
-        public ProjectTask ProjectTask { get; private set; }
+        public int Id { get; init; }
+        public string Name { get; init; }
+        public string Surname { get; init; }
+        public ProjectTask ProjectTask { get; init; }
     }
 }

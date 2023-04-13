@@ -12,7 +12,7 @@ namespace ProjectsInTheCompany.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProjectController
+    public class ProjectController : ControllerBase
     {
         private readonly IProjectCreator _projectCreator;
         private readonly IProjectDeleter _projectDeleter;
@@ -38,6 +38,7 @@ namespace ProjectsInTheCompany.API.Controllers
         public List<ProjectDto> GetAll()
         {
             IReadOnlyList<Project> projects = _projectReciever.GetAll();
+
             return projects.Select(p => p.Map())
                 .ToList();
         }

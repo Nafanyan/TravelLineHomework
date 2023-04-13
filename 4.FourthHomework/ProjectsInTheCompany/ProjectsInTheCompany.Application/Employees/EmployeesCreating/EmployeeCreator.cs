@@ -1,5 +1,6 @@
 ﻿using ProjectsInTheCompany.Application.Employees.Commands;
 using ProjectsInTheCompany.Domain.Employees;
+using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.Employees.EmployeesCreating
 {
@@ -9,13 +10,16 @@ namespace ProjectsInTheCompany.Application.Employees.EmployeesCreating
     }
     public class EmployeeCreator : BaseEmployeeUCase, IEmployeeCreator
     {
-        public EmployeeCreator(IEmployeeRepository employeeRepository) : base(employeeRepository)
+        public EmployeeCreator(IEmployeeRepository employeeRepository, IProjectTaskRepository projectTaskRepository) 
+            : base(employeeRepository, projectTaskRepository)
         {
         }
 
         public void Create(AddEmployeeCommand addEmployeeCommand)
         {
-            Employee employee = new Employee(addEmployeeCommand.Name, addEmployeeCommand.Surname);
+            Employee employee = new Employee(addEmployeeCommand.Name, addEmployeeCommand.Surname, addEmployeeCommand.ProjectTask);
+
+            _projectTaskRepository.AddEmployee(addEmployeeCommand.ProjectTask.Id, employee);
 
             _employeeRepository.Add(employee);
         }

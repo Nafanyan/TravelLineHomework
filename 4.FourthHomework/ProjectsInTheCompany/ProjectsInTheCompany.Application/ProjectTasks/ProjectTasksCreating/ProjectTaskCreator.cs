@@ -1,4 +1,5 @@
 ﻿using ProjectsInTheCompany.Application.ProjectTasks.Commands;
+using ProjectsInTheCompany.Domain.Projects;
 using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTaskCreating
@@ -9,13 +10,16 @@ namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTaskCreating
     }
     public class ProjectTaskCreator : BaseProjectTaskUCase, IProjectTaskCreator
     {
-        public ProjectTaskCreator(IProjectTaskRepository projectTaskRepository) : base(projectTaskRepository)
+        public ProjectTaskCreator(IProjectTaskRepository projectTaskRepository, IProjectRepository projectRepository) : 
+            base(projectTaskRepository, projectRepository)
         {
         }
 
         public void Create(AddProjectTaskCommand addProjectTaskCommand)
         {
             ProjectTask projectTask = new ProjectTask(addProjectTaskCommand.Description, addProjectTaskCommand.Project);
+
+            _projectRepository.AddProjectTask(addProjectTaskCommand.Project.Id, projectTask);
 
             _projectTaskRepository.Add(projectTask);
         }

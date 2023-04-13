@@ -17,7 +17,6 @@ namespace ProjectsInTheCompany.Infrastructure.Foundation
 
         public abstract T GetById(int id);
         public abstract void Update(T values);
-
         public virtual IReadOnlyList<T> GetAll()
         {
             return _dbSet.ToList();

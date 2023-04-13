@@ -1,4 +1,5 @@
 ﻿using ProjectsInTheCompany.Domain.Employees;
+using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.Employees.EmployeesDeleting
 {
@@ -8,7 +9,7 @@ namespace ProjectsInTheCompany.Application.Employees.EmployeesDeleting
     }
     public class EmployeeDeletor : BaseEmployeeUCase, IEmployeeDeletor
     {
-        public EmployeeDeletor(IEmployeeRepository employeeRepository) : base(employeeRepository)
+        public EmployeeDeletor(IEmployeeRepository employeeRepository, IProjectTaskRepository projectTaskRepository) : base(employeeRepository, projectTaskRepository)
         {
         }
 

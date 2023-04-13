@@ -9,7 +9,7 @@ namespace ProjectsInTheCompany.Domain.ProjectTasks
         public string Description { get; private set; }
         public int ProjectId { get; private set; }
         public Project Project { get; private set; }
-
+        public int EmployeeId { get; private set; }
         public Employee? Employee { get; private set; }
 
         public ProjectTask(string description)
@@ -23,14 +23,29 @@ namespace ProjectsInTheCompany.Domain.ProjectTasks
             UpdateProject(project);
         }
 
+        public ProjectTask(int id, string description, Project project, Employee employee)
+        {
+            Id = id;
+            Description = description;
+            UpdateProject(project);
+            if (employee != null)
+            {
+                AddEmployee(employee);
+            }
+        }
+
         public void UpdateDescription(string description)
         {
             Description = description;
         }
 
-        public void UpdateEmployee(Employee employee)
+        public void AddEmployee(Employee employee)
         {
-            Employee = employee;
+            if (Employee == null)
+            {
+                EmployeeId = employee.Id;
+                Employee = employee;
+            }
         }
 
         public void UpdateProject(Project project)
