@@ -1,10 +1,10 @@
 ﻿using ProjectsInTheCompany.Domain.Projects;
 
-namespace ProjectsInTheCompany.Application.ProjectTasks.Commands
+namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTasksCreating
 {
     public class AddProjectTaskCommand
     {
         public string Description { get; init; }
-        public Project Project { get; init; }
+        public int ProjectIds { get; init; }
     }
 }

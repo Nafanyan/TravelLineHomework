@@ -1,18 +1,17 @@
 ﻿using ProjectsInTheCompany.API.Dtos.EmployeeDtos;
-using ProjectsInTheCompany.Application.Employees.Commands;
-using ProjectsInTheCompany.Domain.ProjectTasks;
+using ProjectsInTheCompany.Application.Employees.EmployeesCreating;
 
 namespace ProjectsInTheCompany.API.Mappers.EmployeeMappers
 {
     public static class AddEmployeeCommandMapper
     {
-        public static AddEmployeeCommand Map(this AddEmployeeCommandDto addEmployeeCommandDto, ProjectTask projectTask)
+        public static AddEmployeeCommand Map(this EmployeeCommandDto employeeCommandDto, int projectTaskId)
         {
             return new AddEmployeeCommand
             {
-                Name = addEmployeeCommandDto.Name,
-                Surname = addEmployeeCommandDto.Surname,
-                ProjectTask = projectTask
+                Name = employeeCommandDto.Name,
+                Surname = employeeCommandDto.Surname,
+                ProjectTaskId = projectTaskId
             };
         }
     }

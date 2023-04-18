@@ -1,8 +1,6 @@
-﻿using ProjectsInTheCompany.Domain.Employees;
-
-namespace ProjectsInTheCompany.API.Dtos.ProjectTaskDtos
+﻿namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTasksUpdating
 {
-    public class ProjectTaskDto
+    public class UpdateProjectTaskCommand
     {
         public int Id { get; init; }
         public string Description { get; init; }

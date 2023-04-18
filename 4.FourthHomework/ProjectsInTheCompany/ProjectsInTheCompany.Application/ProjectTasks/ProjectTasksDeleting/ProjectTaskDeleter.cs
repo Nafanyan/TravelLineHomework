@@ -1,5 +1,4 @@
-﻿using ProjectsInTheCompany.Application.ProjectTasks.Commands;
-using ProjectsInTheCompany.Domain.Projects;
+﻿using ProjectsInTheCompany.Domain.Projects;
 using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTaskDeleting
@@ -8,7 +7,7 @@ namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTaskDeleting
     {
         void Delete(int id);
     }
-    public class ProjectTaskDeleter : BaseProjectTaskUCase, IProjectTaskDeleter
+    public class ProjectTaskDeleter : BaseProjectTaskUseCase, IProjectTaskDeleter
     {
         public ProjectTaskDeleter(IProjectTaskRepository projectTaskRepository, IProjectRepository projectRepository) : 
             base(projectTaskRepository, projectRepository)
@@ -17,9 +16,10 @@ namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTaskDeleting
 
         public void Delete(int id)
         {
-            ProjectTask projectTask = _projectTaskRepository.GetById(id);
+            ProjectTask projectTask = projectTaskRepository.GetById(id);
+            projectTaskValidation.ProjectTaskIsNull(projectTask);
 
-            _projectTaskRepository.Delete(projectTask);
+            projectTaskRepository.Delete(projectTask);
         }
     }
 }

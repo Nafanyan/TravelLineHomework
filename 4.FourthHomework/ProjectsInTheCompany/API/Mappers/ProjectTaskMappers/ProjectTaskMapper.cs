@@ -11,7 +11,7 @@ namespace ProjectsInTheCompany.API.Mappers.ProjectTaskMappers
             {
                 Id = projectTask.Id,
                 Description = projectTask.Description,
-                EmployeeId = projectTask.EmployeeId
+                ProjectId = projectTask.ProjectId
             };
         }
     }

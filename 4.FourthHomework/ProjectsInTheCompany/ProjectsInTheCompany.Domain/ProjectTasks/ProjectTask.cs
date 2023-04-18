@@ -17,23 +17,6 @@ namespace ProjectsInTheCompany.Domain.ProjectTasks
             Description = description;
         }
 
-        public ProjectTask(string description, Project project)
-        {
-            Description = description;
-            UpdateProject(project);
-        }
-
-        public ProjectTask(int id, string description, Project project, Employee employee)
-        {
-            Id = id;
-            Description = description;
-            UpdateProject(project);
-            if (employee != null)
-            {
-                AddEmployee(employee);
-            }
-        }
-
         public void UpdateDescription(string description)
         {
             Description = description;
@@ -41,11 +24,8 @@ namespace ProjectsInTheCompany.Domain.ProjectTasks
 
         public void AddEmployee(Employee employee)
         {
-            if (Employee == null)
-            {
-                EmployeeId = employee.Id;
-                Employee = employee;
-            }
+            EmployeeId = employee.Id;
+            Employee = employee;
         }
 
         public void UpdateProject(Project project)

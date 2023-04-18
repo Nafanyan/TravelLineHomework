@@ -1,4 +1,4 @@
-﻿namespace ProjectsInTheCompany.Application.Projects.Command
+﻿namespace ProjectsInTheCompany.Application.Projects.ProjectsCreating
 {
     public class AddProjectCommand
     {

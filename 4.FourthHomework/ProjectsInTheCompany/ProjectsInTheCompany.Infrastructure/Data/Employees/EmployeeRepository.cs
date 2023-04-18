@@ -3,7 +3,7 @@ using ProjectsInTheCompany.Infrastructure.Foundation;
 
 namespace ProjectsInTheCompany.Infrastructure.Data.Employees
 {
-    internal class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
+    internal class EmployeeRepository : BaseSimpleRepository<Employee>, IEmployeeRepository
     {
         public EmployeeRepository(ProjectsCompanyDbContext projectsCompanyDbContext) : base(projectsCompanyDbContext)
         {
@@ -17,10 +17,7 @@ namespace ProjectsInTheCompany.Infrastructure.Data.Employees
         public override void Update(Employee values)
         {
             Employee employee = GetById(values.Id);
-
-            employee.UpdateName(values.Name);
-            employee.UpdateSurname(values.Surname);
-            employee.UpdateProjectTask(values.ProjectTask);
+            employee = values;
         }
     }
 }

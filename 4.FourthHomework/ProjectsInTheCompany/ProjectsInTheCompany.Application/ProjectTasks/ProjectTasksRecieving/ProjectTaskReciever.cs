@@ -8,7 +8,7 @@ namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTaskRecieving
         IReadOnlyList<ProjectTask> GetAll();
         ProjectTask GetById(int id);
     }
-    public class ProjectTaskReciever : BaseProjectTaskUCase, IProjectTaskReciever
+    public class ProjectTaskReciever : BaseProjectTaskUseCase, IProjectTaskReciever
     {
         public ProjectTaskReciever(IProjectTaskRepository projectTaskRepository, IProjectRepository projectRepository) : 
             base(projectTaskRepository, projectRepository)
@@ -17,12 +17,15 @@ namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTaskRecieving
 
         public IReadOnlyList<ProjectTask> GetAll()
         {
-            return _projectTaskRepository.GetAll();
+            return projectTaskRepository.GetAll();
         }
 
         public ProjectTask GetById(int id)
         {
-            return _projectTaskRepository.GetById(id);
+            ProjectTask projectTask = projectTaskRepository.GetById(id);
+            projectTaskValidation.ProjectTaskIsNull(projectTask);
+
+            return projectTask;
         }
     }
 }

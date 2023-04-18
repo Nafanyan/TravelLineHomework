@@ -1,6 +1,6 @@
-﻿namespace ProjectsInTheCompany.API.Dtos.ProjectsDtos
+﻿namespace ProjectsInTheCompany.Application.Projects.ProjectsUpdating
 {
-    public class UpdateProjectCommandDto
+    public class UpdateProjectCommand
     {
         public int Id { get; init; }
         public string Title { get; init; }

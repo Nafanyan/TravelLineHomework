@@ -14,8 +14,6 @@ namespace ProjectsInTheCompany.Infrastructure.Foundation
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProjectConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProjectTaskConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(EmployeeConfiguration).Assembly);
         }
     }
 }

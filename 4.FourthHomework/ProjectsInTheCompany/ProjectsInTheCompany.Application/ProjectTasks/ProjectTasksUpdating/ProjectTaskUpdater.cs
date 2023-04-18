@@ -1,5 +1,4 @@
-﻿using ProjectsInTheCompany.Application.ProjectTasks.Commands;
-using ProjectsInTheCompany.Domain.Projects;
+﻿using ProjectsInTheCompany.Domain.Projects;
 using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTasksUpdating
@@ -8,7 +7,7 @@ namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTasksUpdating
     {
         void Update(UpdateProjectTaskCommand updateProjectTaskCommand);
     }
-    public class ProjectTaskUpdater : BaseProjectTaskUCase, IProjectTaskUpdater
+    public class ProjectTaskUpdater : BaseProjectTaskUseCase, IProjectTaskUpdater
     {
         public ProjectTaskUpdater(IProjectTaskRepository projectTaskRepository, IProjectRepository projectRepository) : 
             base(projectTaskRepository, projectRepository)
@@ -17,13 +16,16 @@ namespace ProjectsInTheCompany.Application.ProjectTasks.ProjectTasksUpdating
 
         public void Update(UpdateProjectTaskCommand updateProjectTaskCommand)
         {
-            ProjectTask projectTask = _projectTaskRepository.GetById(updateProjectTaskCommand.Id);
+            Project project = projectRepository.GetById(updateProjectTaskCommand.ProjectId);
+            projectTaskValidation.ProjectIsNull(project);
+
+            ProjectTask projectTask = projectTaskRepository.GetById(updateProjectTaskCommand.Id);
+            projectTaskValidation.ProjectTaskIsNull(projectTask);
+
             projectTask.UpdateDescription(updateProjectTaskCommand.Description);
+            projectTask.UpdateProject(project);
 
-            projectTask.UpdateProject(updateProjectTaskCommand.Project);
-
-            _projectTaskRepository.Update(projectTask);
-
+            projectTaskRepository.Update(projectTask);
         }
     }
 }

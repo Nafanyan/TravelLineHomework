@@ -1,17 +1,17 @@
 ﻿using ProjectsInTheCompany.API.Dtos.ProjectsDtos;
-using ProjectsInTheCompany.Application.Projects.Commands;
+using ProjectsInTheCompany.Application.Projects.ProjectsUpdating;
 
 namespace ProjectsInTheCompany.API.Mappers.ProjectMappers
 {
     public static class UpdateProjectCommandMapper
     {
-        public static UpdateProjectCommand Map(this UpdateProjectCommandDto updateProjectCommandDto)
+        public static UpdateProjectCommand Map(this ProjectCommandDto projectCommandDto, int id)
         {
             return new UpdateProjectCommand
             {
-                Id = updateProjectCommandDto.Id,
-                Title = updateProjectCommandDto.Title,
-                Description = updateProjectCommandDto.Description
+                Id = id,
+                Title = projectCommandDto.Title,
+                Description = projectCommandDto.Description
             };
         }
     }

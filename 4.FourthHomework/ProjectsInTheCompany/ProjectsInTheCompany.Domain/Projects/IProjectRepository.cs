@@ -9,7 +9,7 @@ namespace ProjectsInTheCompany.Domain.Projects
         void Add(Project project);
         void Delete(Project project);
         void Update(Project project);
-        void AddProjectTask(int id, ProjectTask projectTask);
+        void AddProjectTask(Project project, ProjectTask projectTask);
 
     }
 }

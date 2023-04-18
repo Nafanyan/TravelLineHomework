@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectsInTheCompany.Application;
-using ProjectsInTheCompany.Application.Projects.Command;
-using ProjectsInTheCompany.Application.Projects.ProjectsCreating;
 using ProjectsInTheCompany.Infrastructure;
 using ProjectsInTheCompany.Infrastructure.Foundation;
 

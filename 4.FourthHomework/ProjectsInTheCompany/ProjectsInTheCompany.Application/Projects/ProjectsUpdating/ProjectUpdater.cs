@@ -1,6 +1,5 @@
-﻿using ProjectsInTheCompany.Application.Projects.Commands;
+﻿using ProjectsInTheCompany.Domain.Exceptions.ProjectExceptions;
 using ProjectsInTheCompany.Domain.Projects;
-using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.Projects.ProjectsUpdating
 {
@@ -8,7 +7,7 @@ namespace ProjectsInTheCompany.Application.Projects.ProjectsUpdating
     {
         void Update(UpdateProjectCommand updateProjectCommand);
     }
-    public class ProjectUpdater : BaseProjectUCase, IProjectUpdater
+    public class ProjectUpdater : BaseProjectUseCase, IProjectUpdater
     {
         public ProjectUpdater(IProjectRepository projectRepository) : base(projectRepository)
         {
@@ -16,11 +15,12 @@ namespace ProjectsInTheCompany.Application.Projects.ProjectsUpdating
 
         public void Update(UpdateProjectCommand updateProjectCommand)
         {
-            Project project = _projectRepository.GetById(updateProjectCommand.Id);
+            Project project = projectRepository.GetById(updateProjectCommand.Id);
+            projectValidation.ProjectIsNull(project);
+
             project.UpdateTitle(updateProjectCommand.Title);
             project.UpdateDescription(updateProjectCommand.Description);
-            
-            _projectRepository.Update(project);
+            projectRepository.Update(project);
         }
     }
 }

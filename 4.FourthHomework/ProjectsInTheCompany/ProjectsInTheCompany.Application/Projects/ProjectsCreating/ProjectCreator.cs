@@ -1,5 +1,4 @@
-﻿using ProjectsInTheCompany.Application.Projects.Command;
-using ProjectsInTheCompany.Domain.Projects;
+﻿using ProjectsInTheCompany.Domain.Projects;
 
 namespace ProjectsInTheCompany.Application.Projects.ProjectsCreating
 {
@@ -7,7 +6,7 @@ namespace ProjectsInTheCompany.Application.Projects.ProjectsCreating
     {
         void Create(AddProjectCommand addProjectCommand);
     }
-    public class ProjectCreator : BaseProjectUCase, IProjectCreator
+    public class ProjectCreator : BaseProjectUseCase, IProjectCreator
     {
         public ProjectCreator(IProjectRepository projectRepository) : base(projectRepository)
         {
@@ -17,7 +16,7 @@ namespace ProjectsInTheCompany.Application.Projects.ProjectsCreating
         {
             Project project = new Project(addProjectCommand.Title, addProjectCommand.Description);
 
-            _projectRepository.Add(project);
+            projectRepository.Add(project);
         }
     }
 }

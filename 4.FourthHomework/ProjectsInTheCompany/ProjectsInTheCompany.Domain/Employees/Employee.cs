@@ -15,7 +15,6 @@ namespace ProjectsInTheCompany.Domain.Employees
             Name = name;
             Surname = surname;
         }
-
         public Employee(string name, string surname, ProjectTask projectTask)
         {
             Name = name;

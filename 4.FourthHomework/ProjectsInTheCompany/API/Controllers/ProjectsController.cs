@@ -6,13 +6,14 @@ using ProjectsInTheCompany.Application.Projects.ProjectsCreating;
 using ProjectsInTheCompany.Application.Projects.ProjectsDeleting;
 using ProjectsInTheCompany.Application.Projects.ProjectsReceiving;
 using ProjectsInTheCompany.Application.Projects.ProjectsUpdating;
+using ProjectsInTheCompany.Domain.Exceptions.ProjectExceptions;
 using ProjectsInTheCompany.Domain.Projects;
 
 namespace ProjectsInTheCompany.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProjectController : ControllerBase
+    public class ProjectsController : ControllerBase
     {
         private readonly IProjectCreator _projectCreator;
         private readonly IProjectDeleter _projectDeleter;
@@ -20,7 +21,7 @@ namespace ProjectsInTheCompany.API.Controllers
         private readonly IProjectUpdater _projectUpdater;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProjectController(
+        public ProjectsController(
             IProjectCreator projectCreator,
             IProjectDeleter projectDeleter,
             IProjectReciever projectReciever,
@@ -35,46 +36,66 @@ namespace ProjectsInTheCompany.API.Controllers
         }
 
         [HttpGet]
-        public List<ProjectDto> GetAll()
+        public IActionResult GetAll()
         {
             IReadOnlyList<Project> projects = _projectReciever.GetAll();
 
-            return projects.Select(p => p.Map())
-                .ToList();
+            return Ok(projects.Select(p => p.Map())
+                .ToList());
         }
 
         [HttpGet("{id}")]
-        public ProjectDto GetById(int id)
+        public IActionResult GetById(int id)
         {
-            Project project = _projectReciever.GetById(id);
-            return project.Map();
+            try
+            {
+                Project project = _projectReciever.GetById(id);
+                return Ok(project.Map());
+            }
+            catch (ProjectException p)
+            {
+                return Ok($"Error when trying to get information about the project: {p.Message}");
+            }
         }
 
         [HttpPost]
-        public void Add([FromBody] AddProjectCommandDto addProjectCommandDto)
+        public IActionResult Add([FromBody] ProjectCommandDto projectCommandDto)
         {
-            _projectCreator.Create(addProjectCommandDto.Map());
+            _projectCreator.Create(projectCommandDto.Map());
             _unitOfWork.Commit();
+            return Ok("Project added");
         }
 
         [HttpDelete("{id}")]
-        public void DeleteById(int id)
+        public IActionResult DeleteById(int id)
         {
-            _projectDeleter.Delete(id);
-            _unitOfWork.Commit();
+
+            try
+            {
+                _projectDeleter.Delete(id);
+                _unitOfWork.Commit();
+                return Ok("Project deleted");
+            }
+            catch (ProjectException p)
+            {
+                return Ok($"Error when trying to delete a project: {p.Message}");
+            }
         }
 
         [HttpPut("{id}")]
-        public void Update(int id, [FromBody] AddProjectCommandDto addProjectCommandDto)
+        public IActionResult Update(int id, [FromBody] ProjectCommandDto projectCommandDto)
         {
-            UpdateProjectCommandDto updateProjectCommandDto = new UpdateProjectCommandDto
+
+            try
             {
-                Id = id,
-                Title = addProjectCommandDto.Title,
-                Description = addProjectCommandDto.Description
-            };
-            _projectUpdater.Update(updateProjectCommandDto.Map());
-            _unitOfWork.Commit();
+                _projectUpdater.Update(projectCommandDto.Map(id));
+                _unitOfWork.Commit();
+                return Ok("Project updated");
+            }
+            catch (ProjectException p)
+            {
+                return Ok($"Error when trying to update project information: {p.Message}");
+            }
         }
     }
 }

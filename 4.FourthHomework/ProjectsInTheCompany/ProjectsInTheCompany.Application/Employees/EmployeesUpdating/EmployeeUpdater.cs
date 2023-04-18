@@ -1,5 +1,4 @@
-﻿using ProjectsInTheCompany.Application.Employees.Commands;
-using ProjectsInTheCompany.Domain.Employees;
+﻿using ProjectsInTheCompany.Domain.Employees;
 using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Application.Employees.EmployeesUpdating
@@ -8,7 +7,7 @@ namespace ProjectsInTheCompany.Application.Employees.EmployeesUpdating
     {
         void Update(UpdateEmployeeCommand updateEmployeeCommand);
     }
-    public class EmployeeUpdater : BaseEmployeeUCase, IEmployeeUpdater
+    public class EmployeeUpdater : BaseEmployeeUseCase, IEmployeeUpdater
     {
         public EmployeeUpdater(IEmployeeRepository employeeRepository, IProjectTaskRepository projectTaskRepository) : base(employeeRepository, projectTaskRepository)
         {
@@ -16,12 +15,16 @@ namespace ProjectsInTheCompany.Application.Employees.EmployeesUpdating
 
         public void Update(UpdateEmployeeCommand updateEmployeeCommand)
         {
-            Employee employee = _employeeRepository.GetById(updateEmployeeCommand.Id);
+            ProjectTask projectTask = projectTaskRepository.GetById(updateEmployeeCommand.ProjectTaskId);
+            employeeValidation.ProjectTaskIsNull(projectTask);
+
+            Employee employee = employeeRepository.GetById(updateEmployeeCommand.Id);
+            employeeValidation.EmployeeIsNull(employee);
+
             employee.UpdateName(updateEmployeeCommand.Name);
             employee.UpdateSurname(updateEmployeeCommand.Surname);
-            employee.UpdateProjectTask(updateEmployeeCommand.ProjectTask);
-
-            _employeeRepository.Update(employee);
+            employee.UpdateProjectTask(projectTask);
+            employeeRepository.Update(employee);
         }
     }
 }

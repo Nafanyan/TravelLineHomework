@@ -1,26 +1,17 @@
 ﻿using ProjectsInTheCompany.Domain.Employees;
 using ProjectsInTheCompany.Domain.ProjectTasks;
 using ProjectsInTheCompany.Infrastructure.Foundation;
-using System.Collections.Generic;
 
 namespace ProjectsInTheCompany.Infrastructure.Data.ProjectTasks
 {
-    internal class ProjectTaskRepository : BaseRepository<ProjectTask>, IProjectTaskRepository
+    internal class ProjectTaskRepository : BaseSimpleRepository<ProjectTask>, IProjectTaskRepository
     {
         public ProjectTaskRepository(ProjectsCompanyDbContext projectsCompanyDbContext) : base(projectsCompanyDbContext)
         {
         }
 
-        public override IReadOnlyList<ProjectTask> GetAll()
+        public void AddEmployee(ProjectTask projectTask, Employee employee)
         {
-            return _dbSet.Select(pt => new ProjectTask(pt.Id, pt.Description, pt.Project, pt.Employee))
-                .ToList();
-
-        }
-
-        public void AddEmployee(int idProjectTask, Employee employee)
-        {
-            ProjectTask projectTask = GetById(idProjectTask);
             projectTask.AddEmployee(employee);
         }
 
@@ -32,8 +23,7 @@ namespace ProjectsInTheCompany.Infrastructure.Data.ProjectTasks
         public override void Update(ProjectTask values)
         {
             ProjectTask projectTask = GetById(values.Id);
-            projectTask.UpdateDescription(values.Description);
-            projectTask.UpdateProject(values.Project);
+            projectTask = values;
         }
     }
 }

@@ -1,16 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProjectsInTheCompany.Domain.Employees;
-using ProjectsInTheCompany.Domain.Projects;
-using ProjectsInTheCompany.Domain.ProjectTasks;
 
 namespace ProjectsInTheCompany.Infrastructure.Foundation
 {
-    internal abstract class BaseRepository<T> where T : class
+    internal abstract class BaseSimpleRepository<T> where T : class
     {
         private readonly ProjectsCompanyDbContext _projectsCompanyDbContext;
         protected DbSet<T> _dbSet => _projectsCompanyDbContext.Set<T>();
 
-        protected BaseRepository(ProjectsCompanyDbContext projectsCompanyDbContext)
+        protected BaseSimpleRepository(ProjectsCompanyDbContext projectsCompanyDbContext)
         {
             _projectsCompanyDbContext = projectsCompanyDbContext;
         }
@@ -25,12 +22,9 @@ namespace ProjectsInTheCompany.Infrastructure.Foundation
         {
             _dbSet.Add(values);
         }
-
         public virtual void Delete(T values)
         {
             _dbSet.Remove(values);
         }
-
-
     }
 }

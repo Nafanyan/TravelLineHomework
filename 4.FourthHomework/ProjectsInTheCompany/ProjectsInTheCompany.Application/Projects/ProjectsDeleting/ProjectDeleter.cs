@@ -6,7 +6,7 @@ namespace ProjectsInTheCompany.Application.Projects.ProjectsDeleting
     {
         void Delete(int id);
     }
-    public class ProjectDeleter : BaseProjectUCase, IProjectDeleter
+    public class ProjectDeleter : BaseProjectUseCase, IProjectDeleter
     {
         public ProjectDeleter(IProjectRepository projectRepository) : base(projectRepository)
         {
@@ -14,9 +14,10 @@ namespace ProjectsInTheCompany.Application.Projects.ProjectsDeleting
 
         public void Delete(int id)
         {
-            Project project = _projectRepository.GetById(id);
+            Project project = projectRepository.GetById(id);
+            projectValidation.ProjectIsNull(project);
 
-            _projectRepository.Delete(project);
+            projectRepository.Delete(project);
         }
     }
 }

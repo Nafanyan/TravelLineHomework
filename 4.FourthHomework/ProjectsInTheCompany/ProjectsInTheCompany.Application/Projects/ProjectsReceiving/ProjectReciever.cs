@@ -1,4 +1,5 @@
-﻿using ProjectsInTheCompany.Domain.Projects;
+﻿using ProjectsInTheCompany.Domain.Exceptions.ProjectExceptions;
+using ProjectsInTheCompany.Domain.Projects;
 
 namespace ProjectsInTheCompany.Application.Projects.ProjectsReceiving
 {
@@ -8,20 +9,23 @@ namespace ProjectsInTheCompany.Application.Projects.ProjectsReceiving
         IReadOnlyList<Project> GetAll();
         Project GetById(int id);
     }
-    public class ProjectReciever : BaseProjectUCase, IProjectReciever
+    public class ProjectReciever : BaseProjectUseCase, IProjectReciever
     {
-        public ProjectReciever(IProjectRepository projectRepository) : base(projectRepository)
+        public ProjectReciever(IProjectRepository projectRepository) 
+            : base(projectRepository)
         {
         }
 
         public IReadOnlyList<Project> GetAll()
         {
-            return _projectRepository.GetAll();
+            return projectRepository.GetAll();
         }
 
         public Project GetById(int id)
         {
-            return _projectRepository.GetById(id);
+            Project project = projectRepository.GetById(id);
+            projectValidation.ProjectIsNull(project);
+            return project;
         }
     }
 }

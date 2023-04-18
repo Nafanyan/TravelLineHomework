@@ -7,7 +7,7 @@ namespace ProjectsInTheCompany.Application.Employees.EmployeesDeleting
     {
         void Delete(int id);
     }
-    public class EmployeeDeletor : BaseEmployeeUCase, IEmployeeDeletor
+    public class EmployeeDeletor : BaseEmployeeUseCase, IEmployeeDeletor
     {
         public EmployeeDeletor(IEmployeeRepository employeeRepository, IProjectTaskRepository projectTaskRepository) : base(employeeRepository, projectTaskRepository)
         {
@@ -15,9 +15,10 @@ namespace ProjectsInTheCompany.Application.Employees.EmployeesDeleting
 
         public void Delete(int id)
         {
-            Employee employee = _employeeRepository.GetById(id);
+            Employee employee = employeeRepository.GetById(id);
+            employeeValidation.EmployeeIsNull(employee);
 
-            _employeeRepository.Delete(employee);
+            employeeRepository.Delete(employee);
         }
     }
 }

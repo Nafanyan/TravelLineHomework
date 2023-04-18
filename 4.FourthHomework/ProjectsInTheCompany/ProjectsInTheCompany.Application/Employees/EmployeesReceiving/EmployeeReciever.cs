@@ -8,7 +8,7 @@ namespace ProjectsInTheCompany.Application.Employees.EmployeesReceiving
         IReadOnlyList<Employee> GetAll();
         Employee GetById(int id);
     }
-    public class EmployeeReciever : BaseEmployeeUCase, IEmployeeReciever
+    public class EmployeeReciever : BaseEmployeeUseCase, IEmployeeReciever
     {
         public EmployeeReciever(IEmployeeRepository employeeRepository, IProjectTaskRepository projectTaskRepository) : base(employeeRepository, projectTaskRepository)
         {
@@ -16,12 +16,14 @@ namespace ProjectsInTheCompany.Application.Employees.EmployeesReceiving
 
         public IReadOnlyList<Employee> GetAll()
         {
-            return _employeeRepository.GetAll();
+            return employeeRepository.GetAll();
         }
 
         public Employee GetById(int id)
         {
-            return _employeeRepository.GetById(id);
+            Employee employee = employeeRepository.GetById(id);
+            employeeValidation.EmployeeIsNull(employee);
+            return employee;
         }
     }
 }
